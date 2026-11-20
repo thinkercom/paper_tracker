@@ -15,6 +15,81 @@
         "summary": "EEGNet是一种用于EEG脑机接口的紧凑卷积网络，使用深度可分离卷积来表达EEG特征提取概念。研究在P300、错误相关负性、运动相关皮层电位和感觉运动节律等范式上与参考方法比较，并称在训练数据有限时跨范式泛化更好。作者还可视化学习到的特征以探讨其可解释性。",
         "recommended": true
       }
+    },
+    "13c4f9010a5f1f7440b62aa75cfa22a3d3012c1a9f71f0adb225513adddd4dff": {
+      "scored_at": "2026-11-20T07:13:53.713744+00:00",
+      "paper": {
+        "paper_title": "RL Post-Training in Diffusion Transformers Is Activation Steering",
+        "paper_abstract": "Reinforcement learning (RL) post-training substantially improves the visual quality, text rendering, and compositional accuracy of diffusion transformers. Because capabilities such as rendering requested text or composing multiple objects are inherently prompt-dependent, a natural hypothesis is that improving them requires learning complex, input-dependent transformations. To isolate how much of these gains an input-independent shift explains, we probe each RL-tuned model with a deliberately simple parameterization: a fixed set of steering vectors added to the block outputs of the frozen base model. On SD3.5-M, these vectors hold 65x fewer parameters than the RL-tuned LoRA (0.29M against 18.8M). We fit them to match the velocity predictions of public RL-tuned checkpoints, with no reward in the objective. Although the vectors are identical for every prompt, token, and sampling seed, they recover 90.0-96.3% of the reward gains of six RL-tuned image models, and 89.8% and 111.9% on two RL-tuned video models. Initialized at zero and trained with online RL, the vectors alone exceed the reward gains of weight-based RL on text rendering (OCR) and human preference (PickScore) on SD3.5-M. A constant shift thus suffices for most of the gain of policy-gradient RL post-training: without new input-dependent transformations, it steers the pretrained generator toward what it can already compute.",
+        "paper_url": "http://arxiv.org/abs/2611.26627v1",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 8,
+        "reason": "论文讨论扩散Transformer的强化学习后训练与激活引导，仅在“Transformer”这一通用架构词上与研究兴趣有极弱关联；没有任何证据表明涉及EEG、脑机接口、运动想象分类或跨被试迁移学习。相关性很低，且标题与摘要未提供这些方向的参考价值。",
+        "summary": "论文研究扩散Transformer经过强化学习后训练后获得的视觉质量、文本渲染和组合准确率提升，是否可由输入无关的固定激活偏移解释。作者在冻结基础模型的模块输出上加入固定转向向量，并拟合公开RL调优检查点的速度预测，目标中不含奖励。实验显示这些固定向量能恢复多个图像和视频RL调优模型的大部分奖励增益，并在部分指标上超过基于权重的RL。",
+        "recommended": false
+      }
+    },
+    "1d61b79300f8d7dbd7c1682a94497eea19f5da744e1a2be97419e85f1d326fc4": {
+      "scored_at": "2026-11-20T07:13:58.016185+00:00",
+      "paper": {
+        "paper_title": "TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming",
+        "paper_abstract": "Hybrid architectures have become mainstream among open-weight language models. Their global-attention and bounded-state layers maintain heterogeneous caches whose demands vary with context length and concurrency. We present TideCache, a serving system on CPU--GPU superchips with three components for allocating GPU memory among caches and managing their residency across GPU and host memory. The Transparent Cache Pool redistributes physical pages among cache components behind fixed virtual addresses, preserving cache layouts and backend interfaces. The Cache Streamer uses computation intervals provided by bounded-state layers to prefetch the next global-attention layer's prefix into GPU slots shared across global-attention layers, reducing GPU residency while overlapping layer-wise transfers with computation. Generated KV remains resident. The Request Scheduler selects resident or streamed execution and triggers capacity adjustments according to request size and queue state. Together, they let HBM released by streaming accommodate other cache components and additional requests. Implemented in SGLang and evaluated on GB300 and GH200 across seven model/platform configurations, TideCache completes up to 2.04x as many agent turns, reduces overall P50 per-token latency by 20--59%, and improves agent P50 TTFT by 1.40--3.05x compared with SGLang with HiCache.",
+        "paper_url": "http://arxiv.org/abs/2611.26619v1",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 5,
+        "reason": "论文主题是混合架构大语言模型的推理服务与缓存管理，与EEG、脑机接口、运动想象分类、跨被试迁移学习均无直接关联；仅在“Transformer”这一通用词上与LLM架构有极弱邻近性，但摘要未涉及EEG或脑机接口方法。",
+        "summary": "TideCache是一个面向CPU-GPU超级芯片的混合LLM服务系统，包含透明缓存池、缓存流式器和请求调度器三个组件，用于在GPU与主机内存间分配和管理异构缓存。它利用有界状态层提供的计算区间预取全局注意力层前缀，并在流式执行与常驻执行间调度请求。系统在SGLang中实现，并在GB300和GH200的七种模型/平台配置上评估，报告了智能体轮次完成量、每token延迟和TTFT等指标相对SGLang with HiCache的改进。",
+        "recommended": false
+      }
+    },
+    "00284a0675dca07f997e67200ee62716b1eab7d1f23413446ef0268de97f865d": {
+      "scored_at": "2026-11-20T07:14:02.464338+00:00",
+      "paper": {
+        "paper_title": "One Prior, Two Dynamics: Repurposing Video Diffusion Transformers for Self-Supervised Latent Action Learning",
+        "paper_abstract": "Videos reveal how the world changes, but rarely the actions that cause those changes. Latent action learning recovers such supervision from visual transitions, yet often learns the underlying dynamics largely from scratch. We ask whether a pretrained video generator can instead provide the prior for both inverse and forward dynamics. We introduce O$^{2}$LaF, built on a simple principle: one prior, two dynamics. We initialize both models from the same pretrained video DiT and adapt them to their distinct roles: a feed-forward transition encoder with learnable action queries for inverse dynamics, and a causal, action-conditioned video generator for forward dynamics. By controlling information access and optimizing both dynamics end-to-end through a compact bottleneck, O$^{2}$LaF learns transferable actions from unlabeled videos. Across navigation and robotic manipulation, O$^{2}$LaF sets a new state of the art in few-shot action probing and enables stronger zero-shot action transfer across visual contexts and embodiments. Beyond generative video priors, we further extend our framework to predictive representation priors such as V-JEPA2, achieving competitive performance. Our findings suggest a broader paradigm for latent-action learning: repurposing pretrained video models to discover transferable actions and predict their consequences.",
+        "paper_url": "http://arxiv.org/abs/2611.26617v1",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 18,
+        "reason": "论文仅在通用深度学习、Transformer 和迁移学习层面与兴趣有间接关联；没有证据涉及 EEG、脑机接口、运动想象分类或跨被试 EEG 迁移。其迁移对象是视觉上下文与具身智能体，而非被试间脑电信号迁移。",
+        "summary": "论文提出 O$^{2}$LaF，利用同一个预训练视频扩散 Transformer 作为先验，分别适配逆动力学与正动力学模型，从无标注视频中学习可迁移的潜在动作。方法在导航和机器人操作任务上评估 few-shot 动作探测与 zero-shot 动作迁移，并尝试扩展到 V-JEPA2 等预测表征先验。",
+        "recommended": false
+      }
+    },
+    "347153165720415b69903d8eab0d4c17058bd7d11fd3177333e63257f28d4c42": {
+      "scored_at": "2026-11-20T07:14:07.041723+00:00",
+      "paper": {
+        "paper_title": "Bio-PM-Guided Synthetic IMU Generation",
+        "paper_abstract": "Collecting and labeling inertial measurement unit (IMU) data for human activity recognition (HAR) is expensive, and models trained on one group of subjects often fail to generalize to unseen individuals. Even with balanced data, classifiers struggle to distinguish dynamically similar activity classes and benefit from targeted augmentation. We explore whether synthetic IMU data generated in the representation space of a pretrained biosignal encoder, Bio-PM \\cite{b1}, can serve as a practical augmentation source. Rather than synthesizing raw signals, we leverage Bio-PM's frozen encoder to convert 10-second IMU windows into token embedding sequences and train class-conditional decoders in this space: (1) an autoregressive transformer decoder that predicts tokens sequentially, and (2) a diffusion decoder that learns the token distribution through a denoising objective. We analyze generation realism through distributional metrics and embedding-space visualizations, evaluate downstream utility through leave-one-subject-out HAR classification, and present a PatchDecoder for approximate raw waveform reconstruction. Our diffusion decoder achieves a Train-on-Synthetic-Test-on-Real (TSTR) macro-F1 of 0.68, demonstrating that generated tokens are realistic enough to train a classifier that transfers to real data. Combining synthetic-token augmentation with a 320-dimensional gravity-aware feature representation raises LOSO macro-F1 from 0.729 to 0.809 over a real-only baseline across 51 subjects on the WISDM benchmark, with statistically significant gains concentrated in the most challenging activity classes. These results demonstrate that high-fidelity generation in a pretrained encoder's representation space is achievable and practically useful for cross-subject HAR augmentation.",
+        "paper_url": "http://arxiv.org/abs/2611.26607v1",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 58,
+        "reason": "论文涉及跨被试泛化、Transformer 解码器和深度学习数据增强，与用户的跨被试迁移学习及 Transformer 兴趣有间接关联；但研究对象是 IMU 人体活动识别，不是 EEG、脑机接口或运动想象分类，摘要中没有支持这些核心方向的证据。",
+        "summary": "论文研究在预训练生物信号编码器 Bio-PM 的表征空间中生成合成 IMU 数据，以缓解 IMU 数据标注昂贵和跨被试泛化差的问题。方法包括自回归 Transformer 解码器和扩散解码器，并评估合成数据的真实性及下游 HAR 分类效用。扩散解码器达到 TSTR macro-F1 0.68；在 WISDM 的 51 名被试上，将合成 token 增强与 320 维重力感知特征结合后，LOSO macro-F1 从 0.729 提升到 0.809，提升主要集中在困难活动类别。",
+        "recommended": false
+      }
+    },
+    "413f551c1f23e3e2c2931e19cd7a8ae38fdfcf8c4b514422fba4f69dcca0d5c3": {
+      "scored_at": "2026-11-20T07:14:11.057871+00:00",
+      "paper": {
+        "paper_title": "Depth Pro 2: Sharp and Temporally Consistent Metric Monocular Depth",
+        "paper_abstract": "We present Depth Pro 2, an approach to estimating dense metric depth for images and video at full resolution. By analyzing prior methods for monocular depth estimation, we find that they commonly trade off temporal consistency and boundary sharpness: multi-frame methods favor consistency, single-frame methods favor sharpness. To overcome this trade-off, we train a single, scalable network that processes both images and video and predicts depth maps at native resolution. Depth Pro 2 produces depth maps that are metrically accurate, sharp, and temporally consistent all at once, outperforming prior work in all of these dimensions. We release a family of models that define a new Pareto frontier in terms of metric accuracy, sharpness, temporal consistency, and runtime. We release code and weights at https://apple-aiml-research.github.io/ml-depth-pro-2/",
+        "paper_url": "http://arxiv.org/abs/2611.26603v1",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 5,
+        "reason": "该论文研究单目图像/视频的度量深度估计，与用户核心兴趣EEG、脑机接口、运动想象分类、跨被试迁移学习没有直接关联。仅在“深度学习”这一通用方法层面存在极间接关联，摘要中未涉及Transformer、脑电信号或迁移学习。",
+        "summary": "论文提出Depth Pro 2，用于在全分辨率下估计图像和视频的密集度量深度。作者指出多帧方法偏向时间一致性、单帧方法偏向边界锐利度，因此训练一个可扩展网络同时处理图像和视频，并预测原生分辨率深度图。摘要称其在度量精度、锐利度和时间一致性上同时优于先前工作，并发布在精度、锐利度、时间一致性和运行时间上形成新帕累托前沿的模型系列及代码权重。",
+        "recommended": false
+      }
     }
   }
 }
