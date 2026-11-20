@@ -12,7 +12,8 @@ from src.dify_client import DifyError, analyze_paper, extract_result, run_workfl
 from src.main import main, parse_feed
 from src.state import paper_key, load_state, RunLock
 from src.reporting import select_results, render_report
-from src.mailer import build_message, send_report
+from src.mailer import build_message, send_report, email_error_message, MailConfigurationError
+import smtplib
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUTS = json.loads((ROOT / "examples/test_paper.json").read_text(encoding="utf-8"))
@@ -185,6 +186,21 @@ class PipelineTests(unittest.TestCase):
 
 
 class ReportingTests(unittest.TestCase):
+    @patch.dict(os.environ, {}, clear=True)
+    @patch("src.mailer.smtplib.SMTP")
+    def test_missing_settings_are_identified_without_connecting(self, smtp):
+        with self.assertRaises(MailConfigurationError) as caught:
+            send_report(self.make_report())
+        self.assertIn("SMTP_PASSWORD", str(caught.exception))
+        self.assertIn("EMAIL_TO", str(caught.exception))
+        smtp.assert_not_called()
+
+    def test_smtp_error_diagnostics_do_not_expose_server_text(self):
+        error = smtplib.SMTPAuthenticationError(535, b"server text including sensitive-password")
+        message = email_error_message(error)
+        self.assertIn("535", message)
+        self.assertNotIn("sensitive-password", message)
+
     def make_report(self):
         item = {"paper": {**INPUTS, "paper_title": "<script>alert(1)</script>"}, "analysis": RESULT}
         low = {"paper": INPUTS, "analysis": {**RESULT, "score": 69}}

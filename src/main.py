@@ -15,7 +15,7 @@ import requests
 from .dify_client import DifyError, PROJECT_ROOT, analyze_paper, load_config, validate_inputs
 from .state import RunLock, load_state, mark_completed, paper_key
 from .reporting import render_report, select_results
-from .mailer import send_report
+from .mailer import send_report, email_error_message
 
 
 def parse_feed(content):
@@ -123,7 +123,8 @@ def main():
             try:
                 send_report(report)
                 print("Email sent.")
-            except (OSError, ValueError, KeyError, smtplib.SMTPException):
+            except (OSError, ValueError, KeyError, smtplib.SMTPException) as exc:
+                print("Email failed: " + email_error_message(exc), file=sys.stderr)
                 print(f"Email failed; retry delivery using python -m src.mailer --report {output.with_suffix('.json')}", file=sys.stderr)
                 return 1
         return 1 if failures else 0

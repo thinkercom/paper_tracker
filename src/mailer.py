@@ -13,6 +13,24 @@ from .dify_client import load_config
 from .reporting import render_report
 
 
+class MailConfigurationError(ValueError):
+    """A configuration error whose text contains field names, never secrets."""
+
+
+def email_error_message(error):
+    if isinstance(error, MailConfigurationError):
+        return str(error)
+    if isinstance(error, smtplib.SMTPAuthenticationError):
+        return f"SMTP authentication rejected (code {error.smtp_code}); check SMTP authorization code and full login email."
+    if isinstance(error, ssl.SSLError):
+        return "SMTP TLS failed; check SMTP_SECURITY, SMTP_PORT and local certificate configuration."
+    if isinstance(error, (TimeoutError, ConnectionError, smtplib.SMTPConnectError)):
+        return "SMTP connection failed; check host, port and network access."
+    if isinstance(error, smtplib.SMTPRecipientsRefused):
+        return "SMTP rejected recipients; check EMAIL_TO."
+    return "SMTP delivery failed; check mailbox settings and inbox before resending."
+
+
 def build_message(report):
     text, html = render_report(report)
     message = EmailMessage()
@@ -26,12 +44,18 @@ def build_message(report):
 
 def send_report(report):
     required = ("SMTP_SERVER", "SMTP_USERNAME", "SMTP_PASSWORD", "EMAIL_FROM", "EMAIL_TO")
-    if any(not os.getenv(key, "").strip() for key in required):
-        raise ValueError("Email configuration incomplete; set SMTP_SERVER/USERNAME/PASSWORD and EMAIL_FROM/TO.")
+    missing = [key for key in required if not os.getenv(key, "").strip()]
+    if missing:
+        raise MailConfigurationError("Missing email settings in project .env: " + ", ".join(missing))
     mode = os.getenv("SMTP_SECURITY", "starttls").lower()
     if mode not in ("ssl", "starttls"):
-        raise ValueError("SMTP_SECURITY must be ssl or starttls.")
-    port = int(os.getenv("SMTP_PORT") or ("465" if mode == "ssl" else "587"))
+        raise MailConfigurationError("SMTP_SECURITY must be ssl or starttls.")
+    try:
+        port = int(os.getenv("SMTP_PORT") or ("465" if mode == "ssl" else "587"))
+        if not 1 <= port <= 65535:
+            raise ValueError
+    except ValueError:
+        raise MailConfigurationError("SMTP_PORT must be an integer from 1 to 65535.") from None
     context = ssl.create_default_context()
     server_type = smtplib.SMTP_SSL if mode == "ssl" else smtplib.SMTP
     options = {"context": context} if mode == "ssl" else {}
@@ -51,8 +75,9 @@ def main():
     args = parser.parse_args()
     try:
         send_report(json.loads(args.report.read_text(encoding="utf-8")))
-    except (OSError, ValueError, KeyError, smtplib.SMTPException):
-        print("Email failed; check SMTP configuration. Existing report is preserved; no scoring was repeated.", file=sys.stderr)
+    except (OSError, ValueError, KeyError, smtplib.SMTPException) as exc:
+        print("Email failed: " + email_error_message(exc), file=sys.stderr)
+        print("Existing report is preserved; no scoring was repeated.", file=sys.stderr)
         return 1
     print("Email sent.")
     return 0
