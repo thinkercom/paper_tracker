@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "score": {"type": "number", "minimum": 0, "maximum": 100},
+    "reason": {"type": "string", "minLength": 1},
+    "summary": {"type": "string", "minLength": 1},
+    "recommended": {"type": "boolean"}
+  },
+  "required": ["score", "reason", "summary", "recommended"],
+  "additionalProperties": false
+}

@@ -1,0 +1,85 @@
+name: Daily Paper Analysis
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # 08:00 Asia/Shanghai; enable after the first manual success.
+
+permissions:
+  contents: write # Persist ONLY data/processed.json for deduplication.
+
+concurrency:
+  group: paper-tracker-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    if: github.event_name == 'workflow_dispatch' || vars.ENABLE_SCHEDULE == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run offline tests
+        run: python -m unittest discover -s tests -v
+      - name: Analyze papers
+        id: analyze
+        env:
+          PYTHONIOENCODING: utf-8
+          DIFY_API_KEY: ${{ secrets.DIFY_API_KEY }}
+          DIFY_API_URL: ${{ secrets.DIFY_API_URL || 'https://api.dify.ai/v1' }}
+          DIFY_USER: paper-tracker-actions
+          DIFY_MAX_RETRIES: '2'
+          RESEARCH_INTERESTS: ${{ vars.RESEARCH_INTERESTS || 'EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习' }}
+          ARXIV_CATEGORIES: ${{ vars.ARXIV_CATEGORIES || 'cs.LG,q-bio.NC' }}
+          ARXIV_LOOKBACK_DAYS: ${{ vars.ARXIV_LOOKBACK_DAYS || '5' }}
+          ANALYSIS_PROFILE: ${{ vars.ANALYSIS_PROFILE || 'v1' }}
+          MAX_PAPERS: ${{ vars.MAX_PAPERS || '3' }}
+          MIN_SCORE: ${{ vars.MIN_SCORE || '70' }}
+          TOP_K: ${{ vars.TOP_K || '5' }}
+          SEND_EMAIL: ${{ vars.SEND_EMAIL || 'false' }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || '587' }}
+          SMTP_SECURITY: ${{ vars.SMTP_SECURITY || 'starttls' }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+        shell: bash
+        run: |
+          args=()
+          if [[ "$SEND_EMAIL" == "true" ]]; then
+            args+=(--send-email)
+          fi
+          python -m src.main "${args[@]}"
+      - name: Persist successful scoring state
+        if: always() && steps.analyze.outcome != 'skipped'
+        shell: bash
+        run: |
+          if [[ -f data/processed.json ]]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- data/processed.json
+            if ! git diff --cached --quiet; then
+              git commit -m 'Update successful paper scoring state'
+              git pull --rebase
+              git push
+            fi
+          fi
+      - name: Upload reports and recovery state
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-reports-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            reports/
+            data/processed.json
+          if-no-files-found: ignore
+          retention-days: 30

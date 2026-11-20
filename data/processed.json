@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "completed": {
+    "db80c6e03853a362886e83d7193147ebc699b2e040b9c99fe481f09b5f9e32f9": {
+      "scored_at": "2026-11-20T07:08:14.749222+00:00",
+      "paper": {
+        "paper_title": "EEGNet: A Compact Convolutional Network for EEG-based Brain-Computer Interfaces",
+        "paper_abstract": "EEGNet is a compact convolutional network for EEG-based brain-computer interfaces. It uses depthwise and separable convolutions to represent EEG feature extraction concepts. The study compares it with reference approaches across P300, error-related negativity, movement-related cortical potentials, and sensory motor rhythms. With limited training data, it generalizes across paradigms better than the reference algorithms. The authors also visualize learned features to investigate their interpretation. This is a paraphrase of the arXiv abstract, not the full paper or a verbatim abstract.",
+        "paper_url": "https://arxiv.org/abs/1611.08024",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 85,
+        "reason": "论文直接涉及EEG脑机接口和深度学习，EEGNet作为紧凑卷积网络与用户核心方向高度匹配；摘要提到感觉运动节律，与运动想象分类相关。但未涉及Transformer或跨被试迁移学习，摘要也未明确给出运动想象分类任务的实验证据。",
+        "summary": "EEGNet是一种用于EEG脑机接口的紧凑卷积网络，使用深度可分离卷积来表达EEG特征提取概念。研究在P300、错误相关负性、运动相关皮层电位和感觉运动节律等范式上与参考方法比较，并称在训练数据有限时跨范式泛化更好。作者还可视化学习到的特征以探讨其可解释性。",
+        "recommended": true
+      }
+    }
+  }
+}

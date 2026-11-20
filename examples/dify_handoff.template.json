@@ -1,0 +1,24 @@
+{
+  "deployment": "Cloud",
+  "dify_version": "未知",
+  "api_base_url": "https://api.dify.ai/v1",
+  "api_key_location": "已写入项目根目录 .env 的 DIFY_API_KEY，不在聊天中粘贴",
+  "app_type": "Workflow",
+  "published": True,
+  "model_provider": "DeepSeek",
+  "model_name": "deepseek-flash",
+  "input_variables": {
+    "paper_title": "string",
+    "paper_abstract": "paragraph/string",
+    "paper_url": "string",
+    "research_interests": "paragraph/string"
+  },
+  "output_mapping": {"result": "LLM.text（使用 text）"},
+  "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习",
+  "preview_result": {
+    "score": 82,
+    "reason": "论文直接涉及EEG脑机接口与深度学习，且感觉运动节律范式与运动想象分类密切相关，具有明确参考价值。摘要未明确涉及跨被试迁移学习或Transformer，因此这些兴趣点缺乏直接证据。",
+    "summary": "EEGNet是一种用于EEG脑机接口的紧凑卷积网络，采用深度卷积和可分离卷积来表达EEG特征提取概念。研究在P300、错误相关负性、运动相关皮层电位和感觉运动节律等范式上与参考方法进行比较。结果表明，在训练数据有限时，其跨范式泛化能力优于参考算法，作者还可视化了学习到的特征以研究其可解释性。",
+    "recommended": true
+  }
+}
