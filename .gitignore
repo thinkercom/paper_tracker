@@ -5,3 +5,4 @@ __pycache__/
 reports/
 data/*.lock
 data/*.tmp
+.cache/

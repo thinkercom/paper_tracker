@@ -16,6 +16,7 @@ from .dify_client import DifyError, PROJECT_ROOT, analyze_paper, load_config, va
 from .state import RunLock, load_state, mark_completed, paper_key
 from .reporting import render_report, select_results
 from .mailer import send_report, email_error_message
+from .arxiv_client import fetch_arxiv
 
 
 def parse_feed(content):
@@ -45,11 +46,9 @@ def fetch_papers(limit):
     start = end - timedelta(days=days)
     query = "(" + " OR ".join(f"cat:{x}" for x in categories) + ")"
     query += f" AND submittedDate:[{start:%Y%m%d}000000 TO {end:%Y%m%d}235959]"
-    response = requests.get("https://export.arxiv.org/api/query", params={
+    return fetch_arxiv({
         "search_query": query, "max_results": limit, "sortBy": "submittedDate", "sortOrder": "descending",
-    }, headers={"User-Agent": "AgentArticleRecomand/0.1"}, timeout=(10, 60))
-    response.raise_for_status()
-    return parse_feed(response.content)
+    }, parse_feed, PROJECT_ROOT / ".cache/arxiv")
 
 
 def main():

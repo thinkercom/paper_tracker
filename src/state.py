@@ -48,7 +48,7 @@ class RunLock:
         try:
             handle = os.open(self.path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
         except FileExistsError:
-            raise ValueError("Another run holds data/run.lock. If it crashed, verify it stopped before removing the lock.") from None
+            raise ValueError(f"Another run holds {self.path.name}. If it crashed, verify it stopped before removing the lock.") from None
         with os.fdopen(handle, "w") as stream:
             stream.write(str(os.getpid()))
         return self

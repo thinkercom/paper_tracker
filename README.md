@@ -94,3 +94,24 @@ Dify 原始搭建步骤见 `docs/DIFY_SETUP.md`。输出节点变量名仍为 `r
 - [Dify Workflow API](https://docs.dify.ai/en/api-reference/workflow-runs/run-workflow)
 - [GitHub Python 工作流](https://docs.github.com/en/actions/tutorials/build-and-test-code/python)
 - [GitHub 计划触发](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+
+
+## arXiv 返回 429 时
+
+429 表示抓取接口限流；程序在抓取阶段停止，此次不会调用 Dify 或发送邮件，不能据此判断 SMTP 是否成功。
+
+程序会缓存相同查询 15 分钟，在同一目录对 arXiv 请求串行执行并至少间隔 3 秒；对 429/可恢复服务错误最多重试 2 次，默认退避等待 30、60 秒，优先尊重 Retry-After（秒数或 HTTP 日期）。如服务端要求等待超过 60 秒，保存冷却时间并退出；之后启动仍会尊重冷却时间，不提前请求。冷却与缓存位于被 Git 忽略的 `.cache/arxiv/`。
+
+可选环境变量：`ARXIV_MAX_RETRIES=2`（0–3）、`ARXIV_CACHE_TTL_SECONDS=900`。这些是 arXiv 抓取配置，与 `DIFY_MAX_RETRIES` 不同。
+
+本地缓存不会跨机器共享；请避免同时在本地和 Actions 上频繁启动抓取。arXiv 对受控机器整体要求单连接、每三秒至多一次请求：[官方 API 使用限制](https://info.arxiv.org/help/api/tou.html)。退避处理不能保证服务器立即解除已有的限流。
+
+仅验证邮件时请重发已有报告，不运行抓取：
+
+```powershell
+python -m src.mailer --report reports/papers-20261120T080317999165Z.json
+```
+
+以上文件名是本次排查中已有的报告；其他场景替换成实际文件。只有出现 `Email sent.` 才表示程序正常完成 SMTP 投递，最终到达情况仍需检查收件箱。
+
+新增限流、冷却和缓存测试后，当前共 22 项测试通过；首次云端运行记录中的 14 项是部署当时的测试数量。
