@@ -17,4 +17,4 @@
 
 - 22 项离线测试；真实 Dify API、arXiv 抓取、本地报告和 GitHub Actions 已分别验证。
 - 评分仅基于标题与摘要；服务限流和调度延迟可能影响当次运行。
-- 首次正式发布前执行云端完整验收，运行记录见 GitHub Actions。
+- [云端完整验收](https://github.com/thinkercom/paper_tracker/actions/runs/44702107411) 成功：22 项测试通过，历史论文去重 5 篇，失败 0 篇，SMTP 返回 `Email sent.`，报告 artifact 上传成功。

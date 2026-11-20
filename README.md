@@ -248,6 +248,12 @@ python -m unittest discover -s tests -v
 
 当前 22 项离线测试覆盖 API 输出解析、截断拒绝、去重、失败恢复、评分筛选、HTML 转义、邮件调用、arXiv 缓存和冷却重试。离线测试使用模拟网络响应，真实服务的连通性需要独立验证。
 
+### v1.0.0 验收记录（2026-11-20）
+
+[最新版云端完整运行](https://github.com/thinkercom/paper_tracker/actions/runs/44702107411) 已成功：22 项测试通过，5 篇历史论文被去重跳过，0 篇失败；SMTP 日志返回 `Email sent.`，报告 artifact 上传成功。
+
+此前已验证真实 Dify API 评分、真实 arXiv 采集及本地报告。当前仓库定时和邮件开关均已开启。上述云端验收验证了邮件提交成功，不保证任何邮箱服务商的最终收件箱投递，也不保证之后每次都有满足阈值的新论文。
+
 版本变化见 [CHANGELOG](CHANGELOG.md)。
 
 ## 致谢与资料
