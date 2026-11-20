@@ -7,7 +7,8 @@
 - Dify text 输出已通过真实 API 验证，兼容开头完整的 `<think>...</think>` 和 JSON 代码围栏，随后严格校验四字段 JSON。不会自动补齐截断 JSON。
 - 单篇 `analyze_paper()` 生成本地报告、真实 arXiv 抓取到 Dify 评分的链路均已成功。
 - 已实现持久化去重、最低评分、Top K、有限重试和邮件报告。14 项离线测试通过；实际连续运行验证了第二次跳过重复论文。
-- Actions 配置已生成，YAML 已解析验证；当前目录尚未关联 GitHub 仓库，尚未在 GitHub 执行。
+- 已部署至 [thinkercom/paper_tracker](https://github.com/thinkercom/paper_tracker)。2026-11-20 首次 GitHub Actions 运行成功：14 项测试通过，5 篇论文评分成功，0 篇失败，0 篇达到推荐阈值；去重状态与报告已保存。
+- 每日定时已开启：北京时间 08:00（UTC 00:00）；邮件保持关闭。
 - SMTP 尚未配置；邮件格式和调用通过模拟测试，尚未验证真实投递。
 
 ## 安装与本地运行
@@ -76,7 +77,9 @@ python -m src.mailer --report reports/papers-具体时间.json
 
 工作流将报告和恢复状态保存为 artifact，保留 30 天。即便部分评分或邮件失败，也尝试保存成功评分状态。若状态提交被权限/分支保护拒绝，工作流会失败；可从 artifact 恢复状态，避免下次重复调用。不要将临时磁盘或可能被清理的 cache 当成唯一去重存储。
 
-GitHub 托管 Runner 必须能访问 Dify；本机 localhost 无法直接访问。当前尚未连接目标仓库，未执行上传、提交、推送或云端运行。
+GitHub 托管 Runner 必须能访问 Dify；本机 localhost 无法直接访问。当前目标仓库已完成上传、Secrets 配置与云端实测，`ENABLE_SCHEDULE=true`、`SEND_EMAIL=false`。
+
+首次成功记录：[Daily Paper Analysis #1](https://github.com/thinkercom/paper_tracker/actions/runs/44693395531)。可在该运行的 Artifacts 下载本次报告。本批没有达到阈值的推荐属于正常结果，不表示分析失败。
 
 ## 验证与 Dify 配置
 
