@@ -8,15 +8,16 @@
 
 适合希望定期了解新论文、又不想每天逐篇翻阅 arXiv 的研究者。默认兴趣示例为 EEG、脑机接口、运动想象、深度学习与跨被试迁移学习，可替换成自己的方向。
 
-## v1.0.0 能做什么
+## 当前功能
 
-- **自动抓取**：按 arXiv 类别和时间窗口获取标题与摘要，候选数量可配置。
+- **定向抓取与补取**：按类别、标题/摘要关键词和时间窗口分页获取元数据，去重后继续补取，最多给 10 篇新论文评分。
 - **兴趣评分**：通过 Dify Workflow API 返回 0–100 相关性分数、中文摘要、推荐理由和阅读建议。
 - **兼容 DeepSeek text**：支持 JSON 对象或字符串，也能处理完整的 `<think>...</think>` 前缀和 JSON 代码围栏；对评分字段严格校验。
 - **筛选与去重**：按最低分、Top K 排序推荐，以去掉版本号的 arXiv ID 和研究兴趣/分析版本组合去重，失败论文可再次处理。
 - **限流处理**：arXiv 查询缓存、串行访问、冷却记录和有限退避重试；Dify 对明确限流或连接建立超时有限重试。
 - **多格式报告**：本地保存 JSON、Markdown 和 HTML；邮件包含纯文本与 HTML，没有新推荐时也说明统计结果。
-- **每日自动运行**：GitHub Actions 计划在北京时间 08:00 启动，保存报告 artifact，并提交成功评分状态。
+- **每日推送与补跑**：北京时间 08:00 主任务，12:00、20:00 补跑；成功发送论文日报后，同日同收件人/研究配置的补跑跳过。
+- **历史回顾与异常通知**：没有合格新论文或抓取受限时，使用达到阈值的历史评分，明确标注为历史回顾；没有可用历史时发送异常/空结果说明，不冒充新论文。
 
 > 评分只依据标题与摘要，表示与研究兴趣的相关程度，不代表论文质量认证或全文审稿。模型调用可能产生费用。计划任务可能延迟，邮件会在任务处理完成后发送。
 
@@ -42,6 +43,10 @@ Python 负责采集、去重、筛选、报告与邮件；Dify 负责模型分�
 图中流程为 **用户输入 → 模板转换 → LLM → 输出**。模板转换用于组织四个输入字段；最简版本也可以直接在 LLM 提示词中插入变量。输出变量统一命名为 `result`，当前 DeepSeek 示例绑定 LLM 的 `text`。
 
 完整提示词、JSON Schema 和配置步骤见 [Dify 搭建指南](docs/DIFY_SETUP.md)。仓库包含编排截图和接口示例，不包含可直接导入的 Dify DSL 文件。
+
+## 每日推送修复（2026-11-25）
+
+最低推荐分默认从 70 降为 50；候选元数据扫描和模型评分预算分开。外部服务、Actions 调度和邮件最终投递无法绝对保证，系统通过历史回顾、故障通知与同日补跑减少静默断更；不会承诺每天都有新发表或高相关论文。
 
 ## 快速开始
 
@@ -91,10 +96,13 @@ DIFY_API_URL=https://api.dify.ai/v1
 DIFY_API_KEY=填写Workflow应用APIKey
 DIFY_USER=paper-tracker-local
 RESEARCH_INTERESTS=EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习
-ARXIV_CATEGORIES=cs.LG,q-bio.NC
-ARXIV_LOOKBACK_DAYS=5
-MAX_PAPERS=3
-MIN_SCORE=70
+ARXIV_CATEGORIES=cs.LG,q-bio.NC,eess.SP,cs.HC
+ARXIV_KEYWORDS=EEG,electroencephalography,brain-computer interface,brain computer interface,motor imagery
+ARXIV_LOOKBACK_DAYS=30
+ARXIV_PAGE_SIZE=50
+ARXIV_MAX_PAGES=3
+MAX_PAPERS=10
+MIN_SCORE=50
 TOP_K=5
 ANALYSIS_PROFILE=v1
 ```
@@ -170,25 +178,28 @@ Fork 本仓库后，在 **Settings → Secrets and variables → Actions** 配�
 | `SEND_EMAIL` | `false` | 设为 `true` 才发送云端邮件 |
 | `SMTP_SECURITY` | `starttls` | QQ 465 端口应设为 `ssl` |
 | `RESEARCH_INTERESTS` | EEG/BCI 示例 | 修改为自己的研究兴趣 |
-| `ARXIV_CATEGORIES` | `cs.LG,q-bio.NC` | 英文逗号分隔 arXiv 类别 |
-| `ARXIV_LOOKBACK_DAYS` | `5` | 查询最近天数 |
-| `MAX_PAPERS` | `3` | 每次最多获取的候选数，1–100 |
-| `MIN_SCORE` | `70` | 最低推荐分，0–100 |
+| `ARXIV_CATEGORIES` | `cs.LG,q-bio.NC,eess.SP,cs.HC` | 英文逗号分隔 arXiv 类别 |
+| `ARXIV_KEYWORDS` | EEG/脑机接口英文关键词 | 在标题或摘要中匹配；英文逗号分隔 |
+| `ARXIV_PAGE_SIZE` | `50` | 每页获取的元数据数，1–100 |
+| `ARXIV_MAX_PAGES` | `3` | 单次最多取几页，1–10 |
+| `ARXIV_LOOKBACK_DAYS` | `30` | 查询最近天数 |
+| `MAX_PAPERS` | `10` | 去重后每次最多评分的新论文数，1–100 |
+| `MIN_SCORE` | `50` | 最低推荐分，0–100 |
 | `TOP_K` | `5` | 每次最多推荐的篇数 |
 | `ANALYSIS_PROFILE` | `v1` | 提示词/模型变化时可升级以重新评分 |
 
 在 **Actions → Daily Paper Analysis → Run workflow** 手动运行一次。确认分析、邮件、状态提交和报告上传成功后，设置 `ENABLE_SCHEDULE=true`。
 
-定时表达式为 `0 0 * * *`（UTC），对应北京时间每天 08:00。GitHub 计划任务可能延迟，且运行器需要能访问 Dify；本机 `localhost` 不能直接供 GitHub 托管 Runner 使用。
+主定时表达式为 `0 0 * * *`（UTC），对应北京时间每天 08:00；另在北京时间 12:00、20:00 补跑。成功发送含论文的日报后保存当日回执，后续补跑不再抓取或发送。仅故障通知不占用当日论文日报资格。GitHub 计划任务可能延迟，且运行器需要能访问 Dify；本机 `localhost` 不能直接供 GitHub 托管 Runner 使用。
 
-工作流显式申请 `contents: write`，只提交 `data/processed.json`；仓库设置及分支保护也须允许相应写入。报告和恢复状态保存为 artifact，默认保留 30 天。状态提交失败时应先检查权限，并从 artifact 恢复成功状态，避免下次重复评分。
+工作流显式申请 `contents: write`，只提交 `data/processed.json`；仓库设置及分支保护也须允许相应写入。报告和恢复状态保存为 artifact，默认保留 30 天；arXiv 元数据和冷却 JSON 在运行间缓存，不缓存运行锁。状态提交失败时应先检查权限，并从 artifact 恢复成功状态，避免下次重复评分。
 
 ## 数据、筛选与重试规则
 
 - `reports/papers-时间.json` 保存本次所有成功评分、推荐列表、失败记录和统计；同名 `.md`、`.html` 展示推荐报告。
-- `data/processed.json` 保存成功论文元数据、评分和研究兴趣。它会提交到仓库，公开仓库的访问者可查看这些内容；其中不保存 API Key、邮箱授权码或模型推理段。
+- `data/processed.json` 保存成功论文元数据、评分和研究兴趣。它还保存投递时间与按收件人/兴趣哈希区分的日报回执，会提交到仓库。公开仓库的访问者可查看论文和兴趣内容；其中不保存 API Key、邮箱授权码或模型推理段。
 - 无版本 arXiv ID、研究兴趣和 `ANALYSIS_PROFILE` 共同决定去重键。不同 arXiv 版本默认视为同一论文；改变兴趣或分析版本会重新评分。
-- Python 根据 `score >= MIN_SCORE` 并按分数取 Top K；模型 `recommended` 只作参考。已成功评分但低于阈值的论文同样计入历史，修改阈值不会自动重推历史论文。
+- Python 根据 `score >= MIN_SCORE` 并按分数取 Top K；模型 `recommended` 只作参考。已成功评分但低于阈值的论文同样计入历史。当天没有达标新论文时，会从符合当前兴趣、分析版本和分数阈值的历史中优先选择较久未发送的论文；历史池小于 Top K 时可能重复回顾。
 - 需要重新分析时使用 `--force`，会再次产生模型用量；同一批内部仍然去重。
 - Dify 默认额外重试最多 2 次，仅针对明确的 429 和连接建立超时。读取超时、5xx、Workflow 失败或无效 JSON 不自动重发，避免远端已执行时重复消耗。
 - arXiv 对相同查询默认缓存 15 分钟；同目录请求串行且至少间隔 3 秒。429 和可恢复服务错误有限重试，优先遵守 `Retry-After`；默认退避 30、60 秒，要求等待更长时保存冷却时间并退出。
@@ -203,7 +214,7 @@ ARXIV_MAX_RETRIES=2
 ARXIV_CACHE_TTL_SECONDS=900
 ```
 
-arXiv 限流时不会伪造抓取成功，也不会将旧报告静默当成当天结果。仅测试邮件请使用 `src.mailer`。
+arXiv 限流时不会伪造抓取成功：报告显示异常，并可发送明确标注的历史回顾；历史不足时发送故障通知。抓取降级但成功生成论文日报时，Actions 会给出 warning。无论文的故障、评分错误、邮件错误仍返回失败状态。早期步骤失败另有通知命令；它不会在 SMTP 已尝试后立即重发，以避免重复投递。仅测试邮件请使用 `src.mailer`。
 
 ## 常见问题
 
@@ -228,11 +239,14 @@ paper_tracker/
 │   ├── main.py               # 抓取、去重、筛选与报告入口
 │   ├── arxiv_client.py       # 缓存、限流等待与抓取重试
 │   ├── dify_client.py        # analyze_paper() 与输出校验
+│   ├── collection.py         # 关键词检索与分页补取
+│   ├── daily.py              # 历史轮换与每日投递回执
+│   ├── notify_failure.py     # 早期运行失败的通知入口
 │   ├── state.py              # 去重记录、原子写入与运行锁
 │   ├── reporting.py          # 筛选、Markdown 与 HTML 渲染
 │   ├── mailer.py             # SMTP 发送与已有报告重发
 │   └── smoke_test.py         # 单篇真实 API 验证
-├── tests/                    # 22 项离线测试
+├── tests/                    # 32 项离线测试
 ├── examples/                 # 测试论文、结果 Schema 与配置交接模板
 ├── docs/DIFY_SETUP.md         # Dify 提示词和搭建步骤
 ├── imgs/Dify图片.jpg          # Dify 编排截图
@@ -246,7 +260,7 @@ paper_tracker/
 python -m unittest discover -s tests -v
 ```
 
-当前 22 项离线测试覆盖 API 输出解析、截断拒绝、去重、失败恢复、评分筛选、HTML 转义、邮件调用、arXiv 缓存和冷却重试。离线测试使用模拟网络响应，真实服务的连通性需要独立验证。
+当前 32 项离线测试覆盖 API 输出解析、截断拒绝、去重、失败恢复、评分筛选、HTML 转义、邮件调用、arXiv 缓存和冷却重试。新增测试包括重复页补取、部分分页失败保留结果、429 时历史邮件、故障通知、SMTP 失败不写成功回执、补跑不重复发信。离线测试使用模拟网络响应，真实服务的连通性需要独立验证。
 
 ### v1.0.0 验收记录（2026-11-20）
 

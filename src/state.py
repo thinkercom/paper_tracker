@@ -33,6 +33,10 @@ def load_state(path):
 
 def mark_completed(path, state, key, item):
     state["completed"][key] = {"scored_at": datetime.now(timezone.utc).isoformat(), **item}
+    save_state(path, state)
+
+
+def save_state(path, state):
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(".tmp")
     temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")

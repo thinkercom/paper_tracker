@@ -34,7 +34,10 @@ def email_error_message(error):
 def build_message(report):
     text, html = render_report(report)
     message = EmailMessage()
-    message["Subject"] = f"论文推荐报告：{len(report['selected'])} 篇推荐 / {len(report['failures'])} 篇失败"
+    historical = sum(x.get('source') == 'history' for x in report['selected'])
+    status = ' [运行异常]' if report['failures'] else ''
+    message["Subject"] = (f"论文日报 {report.get('report_date', '')}：新推荐 {len(report['selected']) - historical} / "
+                          f"历史回顾 {historical}" + status)
     message["From"] = os.environ["EMAIL_FROM"]
     message["To"] = os.environ["EMAIL_TO"]
     message.set_content(text)
