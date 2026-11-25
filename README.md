@@ -46,6 +46,8 @@ Python 负责采集、去重、筛选、报告与邮件；Dify 负责模型分�
 
 ## 每日推送修复（2026-11-25）
 
+[修复后的云端实测](https://github.com/thinkercom/paper_tracker/actions/runs/45532247906)：32 项测试通过，新评分 10 篇、推荐 5 篇、失败 0 篇，SMTP 返回 `Email sent.`；[同日补跑验证](https://github.com/thinkercom/paper_tracker/actions/runs/45532579012) 成功跳过抓取及重复投递。
+
 最低推荐分默认从 70 降为 50；候选元数据扫描和模型评分预算分开。外部服务、Actions 调度和邮件最终投递无法绝对保证，系统通过历史回顾、故障通知与同日补跑减少静默断更；不会承诺每天都有新发表或高相关论文。
 
 ## 快速开始
