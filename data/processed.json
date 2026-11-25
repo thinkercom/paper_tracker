@@ -90,6 +90,176 @@
         "summary": "论文提出Depth Pro 2，用于在全分辨率下估计图像和视频的密集度量深度。作者指出多帧方法偏向时间一致性、单帧方法偏向边界锐利度，因此训练一个可扩展网络同时处理图像和视频，并预测原生分辨率深度图。摘要称其在度量精度、锐利度和时间一致性上同时优于先前工作，并发布在精度、锐利度、时间一致性和运行时间上形成新帕累托前沿的模型系列及代码权重。",
         "recommended": false
       }
+    },
+    "a3f028ac09c277fc56da35009c40e799ffbd2893bc175e189c4bab607f100190": {
+      "scored_at": "2026-11-25T02:20:49.909190+00:00",
+      "paper": {
+        "paper_title": "EEG-Jev: A Unified Single-Pass Decision Model for EEG",
+        "paper_abstract": "EEG analysis spans choosing alternatives, judging statements, and rating ordered attributes, requiring calibratable probabilities with explicit meaning. We present EEG-Jev, a unified single-pass decision model for EEG. Given an EEG window, a question and an answer specification, one forward pass returns a typed readout: CHOICE gives a candidate distribution, NOUL a proposition probability, and SCORE an ordered-level distribution and expectation. One checkpoint is trained jointly and evaluated once on held-out splits of 35 public sources. Core raw outputs reach 54.08% balanced accuracy on Stieger2021 motor imagery, 70.45% on Sleep-EDF-SC sleep staging, 72.11% per window at threshold 0.5 on CHB-MIT seizure detection with 0.825 AUROC, and 1.700 MAE on 0-10 ds005292 pain ratings. Prior correction and temperature scaling lower negative log-likelihood from 0.766 to 0.606 on Sleep-EDF-SC and 0.166 to 0.019 on CHB-MIT, while direct readout cuts batch-1 latency from 122.43 to 63.11 ms (1.94-fold) against a matched-backbone generative comparator. Interactive demonstration and aggregate results: https://neuroimglab.github.io/EEG-Jev/.",
+        "paper_url": "http://arxiv.org/abs/2611.31875v1",
+        "published": "2026-11-24T03:29:06Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 68,
+        "reason": "论文属于EEG深度学习统一决策模型，并在Stieger2021运动想象数据上报告分类结果，与EEG和运动想象分类兴趣直接相关；但摘要未提供脑机接口应用、Transformer结构或跨被试迁移学习的明确证据，因此与这些核心方向的匹配度有限。整体看有参考价值，但尚未达到直接匹配核心任务的高相关程度。",
+        "summary": "论文提出EEG-Jev，一个面向EEG的统一单次前向决策模型，可根据EEG窗口、问题和答案规范输出选择分布、命题概率或有序评分分布与期望。模型联合训练一个检查点，并在35个公开数据源的留出划分上评估，涉及运动想象、睡眠分期、癫痫检测和疼痛评分等任务。摘要报告了Stieger2021运动想象平衡准确率54.08%、Sleep-EDF-SC 70.45%、CHB-MIT窗口级72.11%与AUROC 0.825，以及ds005292疼痛评分MAE 1.700，并说明先验校正和温度缩放改善负对数似然、直接读出降低推理延迟。",
+        "recommended": false
+      }
+    },
+    "fdadce1677a1d3a68094be4ededb21192faf7e80e3d6134cca38cfdfee8ef0a1": {
+      "scored_at": "2026-11-25T02:20:54.654150+00:00",
+      "paper": {
+        "paper_title": "Is 4 Bits Enough for EEG Sleep Staging? A Subject-Level Benchmark of MXFP4, NVFP4 and FP8",
+        "paper_abstract": "Staging sleep on a wearable device keeps the raw electroencephalogram (EEG) private and saves the energy needed to transmit it. It also requires small, energy-efficient neural networks. We benchmark 13 post-training quantization (PTQ) configurations, from FP16 to the block-scaled 4-bit formats MXFP4 and NVFP4, for five-stage sleep staging from single-channel Fpz-Cz EEG. We use Sleep-EDF-78 (78 subjects), subject-wise cross-validation, three training seeds, value-exact emulation, and per-subject paired statistics. All 8- and 16-bit formats stay within 0.45 percentage points (pp) of FP32 Macro-F1. With 4-bit weights and activations, an epoch-wise CNN loses 1.98 to 3.04 pp, and a temporal-context network loses at most 1.19 pp. A same-encoder ablation shows that temporal context explains little of this gap. At equal block size, NVFP4 outperforms MXFP4. The first layer, which quantizes the raw EEG, is the most sensitive layer in both networks. Keeping the first and last layers in FP8 brings both tested 4-bit formats within 0.48 pp of FP32. This recipe adds at most 2.1% weight storage, needs no retraining, and is equivalent to quantization-aware training (QAT) within an exploratory 1-pp margin. The 4-bit losses fall on the same subjects across architectures (Spearman correlation coefficient = 0.69 to 0.79), and they reduce N3 recall the most. On the nested Sleep-EDF-20 subset, NVFP4 with FP8 first and last layers again stays within 0.25 pp of FP32. Under MXFP4, however, the ranking of the architectures reverses, and FP8 first and last layers do not fully recover two of the three tested models. In our emulation, NVFP4 with FP8 first and last layers thus loses little accuracy without QAT in both cohorts.",
+        "paper_url": "http://arxiv.org/abs/2611.31436v1",
+        "published": "2026-11-23T19:16:45Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 48,
+        "reason": "论文涉及EEG信号与深度学习模型，并在被试级交叉验证下评估睡眠分期，因此与EEG和深度学习兴趣有间接关联。但任务不是运动想象分类或脑机接口，未涉及Transformer，也没有跨被试迁移学习的直接证据；被试级交叉验证不等同于迁移学习。",
+        "summary": "论文对单通道Fpz-Cz EEG五阶段睡眠分期进行13种训练后量化配置的基准测试，比较FP16、FP8及4位MXFP4/NVFP4等格式。使用Sleep-EDF-78的78名被试、被试级交叉验证和三个训练种子，并报告逐被试配对统计。结果显示8位和16位格式与FP32 Macro-F1差距较小，4位权重和激活带来一定下降；将首尾层保留为FP8可缩小差距且无需重训练。",
+        "recommended": false
+      }
+    },
+    "ac60cab603c598d23b8d714e217e2ea3b4ddfdeee72cca9fa11581c0d90e6a74": {
+      "scored_at": "2026-11-25T02:20:58.838622+00:00",
+      "paper": {
+        "paper_title": "Learning Neurovascular Codes for EEG-to-fMRI Synthesis",
+        "paper_abstract": "In this paper, we introduce Neurovascular Codes as shared EEG representations for fMRI generation. We first train a separate EEG encoder to predict each fMRI signal, learning target-specific temporal and spectral features from the same EEG window. After training, we freeze the encoders and project their concatenated hidden features into a shared neurovascular code. Conditioned on this code, stochastic interpolant transforms Gaussian noise into a vector of fMRI signals, allowing different responses to be sampled for the same EEG window. We evaluate our approach on eight public simultaneous EEG-fMRI datasets, including four resting-state and four task-based datasets with 61,646 volume-level pairs. Under within-subject and held-out-subject evaluation, our model improves average Pearson correlation over the strongest encoder baselines by 19.1% and 19.8%, respectively. The corresponding improvements over the strongest generator baselines are 18.8% and 47.9%. Beyond reconstruction accuracy, we also evaluate the generated signals using subject-identification classifiers trained on real fMRI. Our method achieves the highest mean accuracy among the evaluated generators. We hope that our work opens up new opportunities for cross-modal brain modeling.",
+        "paper_url": "http://arxiv.org/abs/2611.31194v1",
+        "published": "2026-11-23T18:45:35Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 58,
+        "reason": "论文涉及EEG表征学习、深度学习以及跨被试（held-out-subject）评估，与用户的EEG和跨被试迁移学习兴趣有间接关联；但核心任务是EEG到fMRI的跨模态生成，并未涉及脑机接口、运动想象分类或Transformer，因此匹配度有限。",
+        "summary": "论文提出Neurovascular Codes作为共享EEG表征，用于生成fMRI信号。方法先分别训练EEG编码器预测各fMRI信号，冻结编码器后将隐藏特征投影为共享码，并以该码为条件用随机插值变换从高斯噪声生成fMRI信号。作者在八个公开同步EEG-fMRI数据集上评估，包括静息态和任务态数据，共61,646个体积级配对，并报告了被试内和被试外评估中Pearson相关性的提升。",
+        "recommended": false
+      }
+    },
+    "de9961d25771954f00b101c5c1aca37daa7dbd2e640a9232b6093e5111ec9c95": {
+      "scored_at": "2026-11-25T02:21:03.544059+00:00",
+      "paper": {
+        "paper_title": "EEG Decoding in Context: A Framework for Tuning-Free EEG Foundation Models",
+        "paper_abstract": "Electroencephalography (EEG) decoding is a central route toward brain-computer interfaces for communication, rehabilitation, cognitive assessment, and neurological monitoring. Recent EEG foundation models have substantially advanced reusable signal representations, but their downstream use still typically requires a task-specific decoder, gradient-based adaptation, and validation-driven model selection. We investigate a complementary foundation-model paradigm based on in-context learning: labeled EEG recordings define the decoding task as context, and new recordings are predicted without updating model parameters. We first pair raw EEG features with a pretrained general-purpose in-context predictor. This direct formulation provides a promising starting point, but its performance remains limited and unstable and does not generalize reliably across EEG paradigms. We find that suitable context construction can address these limitations by improving the effective signal-to-noise ratio and exposing temporal and spatial structure. Building on this insight, we introduce a general framework that combines EEG-specific context construction with a frozen in-context predictor and a metric-based context adaptation mechanism, which matches each downstream task to an appropriate context representation without relying on validation data. Across ten datasets spanning seven EEG decoding paradigms, our method achieves the highest mean BAcc among eleven specialized and fine-tuned EEG baselines, without task-specific parameter updates or validation-based model selection. This framework provides a practical path toward tuning-free EEG foundation models in which adaptation is expressed through context rather than parameter updates.",
+        "paper_url": "http://arxiv.org/abs/2611.31171v1",
+        "published": "2026-11-23T18:30:53Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 75,
+        "reason": "论文直接围绕EEG解码与脑机接口展开，并提出无需任务特定参数更新的EEG基础模型框架，与用户的EEG、BCI和深度学习兴趣高度相关。摘要未明确涉及运动想象分类、Transformer架构或跨被试迁移学习，因此这些方向的匹配缺乏证据。",
+        "summary": "论文研究基于上下文学习的EEG基础模型解码范式，用带标签EEG记录定义任务上下文，并在不更新模型参数的情况下预测新记录。作者发现直接使用通用上下文预测器性能有限且不稳定，进而提出结合EEG特定上下文构建、冻结上下文预测器和基于度量的上下文适配机制的框架。该方法在覆盖七种EEG解码范式的十个数据集上取得最高平均BAcc，且不依赖任务特定参数更新或验证集模型选择。",
+        "recommended": true
+      }
+    },
+    "2a55179a4dc7da9c11d029c14b3fec4cb49324cf2b4fdbb637343ac7fa550b1b": {
+      "scored_at": "2026-11-25T02:21:07.435713+00:00",
+      "paper": {
+        "paper_title": "NeuroMotion: Aligning EEG to Discrete Motion Primitives for Continuous Motion Decoding",
+        "paper_abstract": "EEG-to-motion decoding remains challenging because noisy scalp EEG is difficult to map directly to continuous kinematics. We present NeuroMotion, a framework that aligns EEG representations to discrete motion primitives for continuous motion decoding across heterogeneous paradigms, including full-body free movement, lower-limb treadmill locomotion, and upper-limb freewill reaching and grasping. A VQ-based motion prior discretizes continuous motion into reusable primitives that serve as both alignment prototypes and intermediate prediction targets. Prototypical and supervised contrastive objectives align EEG embeddings to motion-derived prototypes and organize them according to primitive assignments. An E2M Transformer predicts motion-code sequences from the learned EEG representations, while a final geometric refinement stage improves continuous trajectory reconstruction through motion-level training. Under a last-session test protocol, NeuroMotion achieves the best mean reconstruction performance among the compared EEG decoding baselines across all three datasets, with the clearest gains on full-body motion in both reconstruction accuracy and distribution-level quality. Multi-subject ablations further support the contributions of EEG-to-primitive alignment, token prediction, and refinement. Code is available at https://github.com/Liuyi2351433/NeuroAction.",
+        "paper_url": "http://arxiv.org/abs/2611.30817v1",
+        "published": "2026-11-23T15:09:08Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 78,
+        "reason": "该论文直接涉及 EEG 解码、脑机接口、深度学习与 Transformer，与核心研究方向高度相关；但其任务是连续运动解码，而非运动想象分类，摘要也未明确涉及跨被试迁移学习，仅有“多被试消融”证据。",
+        "summary": "NeuroMotion 针对噪声头皮 EEG 难以直接映射连续运动学的问题，提出将 EEG 表征对齐到离散运动基元以进行连续运动解码。方法使用 VQ 运动先验将连续运动离散化为可复用基元，并通过原型与监督对比学习对齐 EEG 嵌入，再用 E2M Transformer 预测运动码序列，最后进行几何细化重建轨迹。实验覆盖全身自由运动、下肢跑步机运动和上肢自由伸手抓取三类范式，在最后会话测试协议下取得最佳平均重建性能，并通过多被试消融支持各模块贡献。",
+        "recommended": true
+      }
+    },
+    "96d5c64d32c2cc95f88c6db8c18a57e055ed8b11a01d3f1ecd85ff374a225b41": {
+      "scored_at": "2026-11-25T02:21:12.025248+00:00",
+      "paper": {
+        "paper_title": "Layer-Readout Interfaces in EEG Foundation Models: Predictive Accessibility and Cross-Dataset Transfer",
+        "paper_abstract": "Intermediate layers often outperform final layers when foundation models are used as frozen feature extractors, but the source of this advantage is unclear. We study this question in EEG foundation models by separating three factors: how representations are read out, whether intermediate layers provide predictive utility beyond the final-layer interface, and whether useful depth structure transfers across datasets. Across five models and three tasks, improving the final-layer readout consistently recovers substantial predictive performance, yet intermediate layers remain advantageous within frozen extraction. We also find that layers selected on one dataset remain useful on another across five dataset pairs and four task families, and that a compact set of source-derived task directions retains predictive value after transfer in sleep staging. Together, these results show that predictive utility varies across depth, and its usefulness depends on how representations are read out and transferred. More crucially, source-selected layers provide a reusable feature interface across datasets, reducing the need for target-side layer search while outperforming final-layer baselines on target datasets.",
+        "paper_url": "http://arxiv.org/abs/2611.31320v1",
+        "published": "2026-11-23T08:14:32Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 78,
+        "reason": "论文聚焦EEG基础模型的层级表征读取与跨数据集迁移，与用户兴趣中的EEG、深度学习及迁移学习方向密切相关，对表征选择和冻结特征提取有参考价值。但摘要未涉及运动想象分类、脑机接口范式、Transformer架构或明确的跨被试迁移设置，因此这些核心兴趣缺乏直接证据。",
+        "summary": "论文研究EEG基础模型作为冻结特征提取器时中间层优于最终层的原因，并区分读取方式、中间层预测效用和深度结构跨数据集迁移三个因素。在五个模型和三个任务上，改进最终层读取能恢复大量预测性能，但中间层在冻结提取中仍有优势。在一个数据集上选出的层在另一数据集上仍有用，涉及五对数据集和四类任务；在睡眠分期中，源域导出的紧凑任务方向迁移后仍保留预测价值。源域选择的层可作为跨数据集复用的特征接口，减少目标侧层搜索并优于最终层基线。",
+        "recommended": true
+      }
+    },
+    "13fc711598deaa2b97c9f469b0fed1e488c7d3b9e863ee0e8071e7127949bb98": {
+      "scored_at": "2026-11-25T02:21:15.887401+00:00",
+      "paper": {
+        "paper_title": "MAS-BIT: A Multi-Agent System for End-to-End BraIn-to-Text Decoding",
+        "paper_abstract": "Speech brain-computer interfaces aim to restore communication by translating neural activity into text, yet end-to-end decoders have historically trailed cascaded systems in accuracy. We introduce a Multi-Agent System for BraIn-to-Text (MAS-BIT), the first multi-agent framework for end-to-end brain-to-text decoding from intracortical recordings. MAS-BIT coordinates three specialized agents: a neural agent that interprets continuous neural representations, a phonetic agent that decodes soft phoneme posteriors, and an arbitration agent that integrates their complementary evidence with direct access to neural representations to generate the final transcription. The expert agents communicate with the arbiter through token-embedding-based latent communication, constructing continuous messages as probability-weighted combinations of token embeddings. These messages retain alternative token hypotheses and provide a differentiable interface through which sentence-level supervision jointly trains the neural encoders and specialized agents across participants. MAS-BIT achieves state-of-the-art end-to-end decoding performance on the Brain-to-Text '24 and '25 benchmarks, with word error rates of 6.929% on '24 and 3.606% on the '25 public test set (3.892% on the private test set). These results surpass the published BIT cascade on the '25 public set and narrow the gap on '24, without ensembling independently trained models or using external language-model rescoring.",
+        "paper_url": "http://arxiv.org/abs/2611.29457v1",
+        "published": "2026-11-22T12:55:45Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 60,
+        "reason": "论文属于脑机接口与深度学习方向，涉及端到端神经解码和多智能体系统，与用户对BCI和深度学习的兴趣有邻域关联。但摘要明确使用的是颅内记录而非EEG，未涉及运动想象分类、Transformer或跨被试迁移学习；仅提到跨参与者联合训练，不能等同于跨被试迁移学习。",
+        "summary": "论文提出MAS-BIT，一个用于颅内记录端到端脑到文本解码的多智能体框架。系统包含神经智能体、音素智能体和仲裁智能体，通过基于词元嵌入的潜在通信整合证据并生成最终转写。该方法在Brain-to-Text '24和'25基准上取得端到端解码的最先进性能，报告的词错误率分别为6.929%和3.606%（公开测试集），私有测试集为3.892%。结果在'25公开集上超过已发表的BIT级联系统，并在不集成独立训练模型、不使用外部语言模型重打分的情况下缩小了'24上的差距。",
+        "recommended": false
+      }
+    },
+    "0deb1d11870abfb0dceaafb6523f39d641c3590c4bd42483ed8c9e18e34fb85d": {
+      "scored_at": "2026-11-25T02:21:19.437751+00:00",
+      "paper": {
+        "paper_title": "SleepXA: Composing Pretrained Neural and Cardiac Foundation Models for Sleep Representation Learning",
+        "paper_abstract": "Physiological signals recorded during sleep provide synchronized views of neural, cardiac, respiratory, and other bodily systems, while preserving modality-specific information. Existing EEG and ECG foundation models already capture rich but distinct physiological structure, motivating an alternative to training a multimodal sleep model from scratch: composing existing pretrained models. We introduce SleepXA, a framework that uses synchronized polysomnography (PSG) to compose independently pretrained neural and cardiac foundation models. SleepXA combines pretrained EEG and ECG encoders with lightweight encoders for additional PSG modalities, and learns shared and modality-specific representations through sleep-guided alignment. We pretrain SleepXA on 9,230 overnight PSG recordings from three large cohorts and evaluate it on 27 downstream tasks spanning sleep representation, clinical and disease prediction, and daytime physiological transfer. SleepXA ranks among the top two methods on 22 of 27 tasks. Controlled experiments further show consistent benefits across sensor configurations and EEG-ECG backbone choices, while pretrained initialization outperforms architecture-matched training from scratch and SleepXA surpasses alternative multimodal composition strategies. These results suggest that synchronized multimodal physiology can serve as a natural interface for composing existing physiological foundation models, yielding reusable representations that extend beyond sleep to clinical and daytime physiological settings.",
+        "paper_url": "http://arxiv.org/abs/2611.29364v1",
+        "published": "2026-11-22T10:09:12Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 55,
+        "reason": "论文涉及 EEG 基础模型、深度学习和预训练表征迁移，与用户的 EEG、深度学习及迁移学习兴趣有间接关联；但未涉及脑机接口、运动想象分类，也未明确使用 Transformer，因此与核心任务匹配有限。",
+        "summary": "SleepXA 提出组合独立预训练的神经和心脏基础模型，用于睡眠表征学习。它利用同步多导睡眠图，将预训练 EEG/ECG 编码器与轻量多模态编码器结合，并通过睡眠引导对齐学习共享和模态特异表征。作者在 9,230 条夜间 PSG 记录上预训练，并在 27 个下游任务上评估，报告在 22 个任务中排名前二。",
+        "recommended": false
+      }
+    },
+    "07990cefff6d7ec91e400cc7c977bf40c0fdeedfd474996b38ad6053162519d5": {
+      "scored_at": "2026-11-25T02:21:23.120515+00:00",
+      "paper": {
+        "paper_title": "Denoised but Not Improved: What EEG Denoising Does to a Downstream Task",
+        "paper_abstract": "Scalp electroencephalography (EEG) is routinely denoised before it reaches a downstream model, and the denoising literature scores a method by how closely its output matches a clean reference waveform. That reference does not exist for real scalp recordings: it is synthesized by adding artifact templates to signals merely presumed clean, and even an exact separation would return cortical activity blurred by volume conduction rather than the activity itself. Fidelity to it is therefore an unvalidatable objective, and whether it predicts any downstream benefit has gone largely unexamined. We report an audit that examines it. Holding a seizure-detection pipeline fixed and varying only the preprocessing stage, we find that five standard denoising methods, spanning analytic, cross-channel and supervised deep families, all fail to improve on the unprocessed signal, and most degrade it. To say what such a stage must instead do, we formalize a label-only, classifier-free probe that reads it by the separability geometry it induces on task-relevant features, decomposing any change into a between-class distance and a within-class scatter term. On a transform that does improve the task, the probe attributes the entire gain to a roughly one-quarter reduction of within-class scatter, with class separation statistically unchanged. What a downstream model benefits from is therefore variance suppression on task-relevant structure, which waveform-fidelity metrics neither measure nor reward.",
+        "paper_url": "http://arxiv.org/abs/2611.29256v1",
+        "published": "2026-11-22T05:54:20Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 55,
+        "reason": "论文讨论EEG去噪对下游任务的影响，与用户对EEG和深度学习流程的兴趣有间接关联；但它聚焦癫痫检测，未涉及运动想象分类、脑机接口、Transformer或跨被试迁移学习，因此核心方向缺少证据支持。",
+        "summary": "论文审计了EEG去噪方法是否真正有利于下游任务。作者固定癫痫检测流程，仅改变预处理阶段，发现五种标准去噪方法均未能改善未处理信号的性能，多数还使其下降。作者进一步提出一种不依赖分类器的探针，用任务相关特征的可分性几何来评估预处理。结果显示，在一个能改善任务的变换中，增益主要来自类内散布约减少四分之一，而类间分离统计上不变。",
+        "recommended": false
+      }
+    },
+    "8dcb08cf145f5f53306ad6b7337d424b3e9437745d38b24a2f555201a8dca6bb": {
+      "scored_at": "2026-11-25T02:21:26.894091+00:00",
+      "paper": {
+        "paper_title": "PhyMind: Physics-Informed Masked Autoencoding for EEG Foundation Models",
+        "paper_abstract": "EEG foundation models are pre-trained almost exclusively with masked reconstruction through a free-form decoder, sometimes with hand-crafted spectral targets added, as in MANAS-2. We study what happens when that decoder is replaced by a generative forward model of EEG. PhyMind keeps a standard masked transformer encoder, but its decoder must explain the masked signal through 68 cortical regions, each driven by damped stochastic oscillators and an aperiodic Ornstein-Uhlenbeck process, projected to the recording's own montage by a fixed boundary-element lead field evaluated per derivation. Training combines masked reconstruction with a Whittle spectral likelihood, an oscillator-dynamics residual, a minimum-norm source prior and a penalised neural residual. In a controlled comparison (same encoder, data, steps and seed), the physics decoder produces encoder tokens whose spectral content is far more linearly decodable than with a masked-autoencoder decoder or with the MANAS-2 objective: mean R^2 on a token-level spectral probe with amplitude-normalised targets is 0.67/0.77/0.77 on three datasets, against 0.24/0.50/0.50 (MAE) and 0.48/0.67/0.66 (MANAS-2 objective), approaching the released 92.8M-parameter MANAS-2 (0.71/0.81/0.80). Downstream gains in the controlled setting are small (four-task mean balanced accuracy 56.6 vs. 53.8 for MAE frozen, 63.8 vs. 62.7 fine-tuned). Region-level features from the physics decoder raise frozen four-class motor-imagery accuracy by 7-14 points, so a 7.2M-parameter model pre-trained on 3k hours of open EEG is comparable to the released MANAS-2 with frozen features (63.0 vs. 61.6). After full fine-tuning, MANAS-2 remains better (66.8 vs. 65.4 for our best model). The inferred sources do not reproduce the lateralisation that a classical inverse solution finds in motor imagery, so we do not claim anatomical interpretability. Code and weights are released.",
+        "paper_url": "http://arxiv.org/abs/2611.28856v1",
+        "published": "2026-11-21T15:13:11Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 86,
+        "reason": "论文直接涉及EEG基础模型、Transformer编码器和运动想象分类，与用户对EEG、脑机接口、深度学习、Transformer的研究兴趣高度相关；摘要还报告了冻结特征与微调下的运动想象任务表现，具有明确参考价值。但未提供跨被试迁移学习的实验或结论，因此该方向证据不足。",
+        "summary": "论文提出PhyMind，用基于EEG生成式前向模型的解码器替换掩码自编码中的自由解码器，编码器仍为掩码Transformer。训练目标结合掩码重建、Whittle谱似然、振荡器动力学残差、最小范数源先验和神经残差惩罚。受控比较显示，物理解码器产生的编码器token在谱内容上更易线性解码，下游四任务平均平衡准确率有小幅提升；区域级特征使冻结四类运动想象准确率提高7–14个百分点。全微调后MANAS-2仍更好，且推断源未复现运动想象的侧化，因此作者不声称解剖可解释性。",
+        "recommended": true
+      }
     }
+  },
+  "deliveries": {
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:8dcb08cf145f5f53306ad6b7337d424b3e9437745d38b24a2f555201a8dca6bb": "2026-11-25T02:21:29.823053+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2a55179a4dc7da9c11d029c14b3fec4cb49324cf2b4fdbb637343ac7fa550b1b": "2026-11-25T02:21:29.823053+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:96d5c64d32c2cc95f88c6db8c18a57e055ed8b11a01d3f1ecd85ff374a225b41": "2026-11-25T02:21:29.823053+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:de9961d25771954f00b101c5c1aca37daa7dbd2e640a9232b6093e5111ec9c95": "2026-11-25T02:21:29.823053+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:a3f028ac09c277fc56da35009c40e799ffbd2893bc175e189c4bab607f100190": "2026-11-25T02:21:29.823053+00:00"
+  },
+  "reports_sent": {
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-25": "2026-11-25T02:21:29.823053+00:00"
   }
 }
