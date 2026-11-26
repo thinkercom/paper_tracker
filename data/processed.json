@@ -250,6 +250,166 @@
         "summary": "论文提出PhyMind，用基于EEG生成式前向模型的解码器替换掩码自编码中的自由解码器，编码器仍为掩码Transformer。训练目标结合掩码重建、Whittle谱似然、振荡器动力学残差、最小范数源先验和神经残差惩罚。受控比较显示，物理解码器产生的编码器token在谱内容上更易线性解码，下游四任务平均平衡准确率有小幅提升；区域级特征使冻结四类运动想象准确率提高7–14个百分点。全微调后MANAS-2仍更好，且推断源未复现运动想象的侧化，因此作者不声称解剖可解释性。",
         "recommended": true
       }
+    },
+    "f58b4a3290a885740e04b6027b26b95e233478d7a06e3bb96372725f7b0e07ba": {
+      "scored_at": "2026-11-26T07:10:03.676394+00:00",
+      "paper": {
+        "paper_title": "Decision-Aligned Value Learning for Selective Adoption of EEG Fusion in Human-Robot Collaboration",
+        "paper_abstract": "Electroencephalography (EEG) captures neural activity associated with human perception and decision-making. It provides human-robot collaboration (HRC) systems with measurable evidence for event recognition, situation assessment, and action preparation. External sensing cannot easily provide such evidence. However, the quality and complementarity of this evidence vary across samples, and existing EEG fusion methods do not explicitly determine when EEG improves a prediction. We therefore framed selective EEG use as a sample-wise incremental-value estimation problem and proposed Value Estimation and Constraint-Aware Triage for Adoption (VECTA). VECTA separates the generation of an EEG-informed Fusion prediction from the decision about whether it should replace the existing Base prediction. The framework uses system gain to quantify the loss reduction from Base to Fusion and matching gain to assess whether benefits arise from sample-matched EEG. A signed-value learner estimates system gain from decision-time evidence and prioritizes high-value Fusion outputs under budget constraints. Cross-subject evaluations on three HRC datasets showed that matched Fusion outperformed shuffled controls. Estimated gains tracked realized gains, with Spearman correlations of 0.347-0.612 and positive-gain areas under the receiver operating characteristic curve (AUROCs) of 0.708-0.842. Under budget constraints, VECTA reduced Brier loss and harmful Fusion adoption and achieved the highest mean normalized AUBC across three datasets among the selective-decision methods evaluated. Validation on three external multi-modal datasets showed that VECTA could be applied directly as a post-hoc decision layer to task-specific predictors without retraining. These results show that selective Fusion adoption can translate the uneven utility of EEG into system-level gains.",
+        "paper_url": "http://arxiv.org/abs/2611.34451v1",
+        "published": "2026-11-25T14:29:37Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 62,
+        "reason": "论文涉及EEG信号使用与跨被试评估，与用户的EEG和跨被试迁移学习兴趣有间接关联；但其任务是人类-机器人协作中的选择性EEG融合决策，并非运动想象分类或脑机接口范式。摘要未体现Transformer、深度学习模型细节或运动想象分类任务，因此对核心研究问题的直接参考价值有限。",
+        "summary": "论文将选择性使用EEG建模为逐样本增量价值估计问题，提出VECTA框架，将EEG融合预测的生成与是否替换基础预测的决策分离。该框架用系统增益和匹配增益衡量EEG融合带来的损失降低，并用带符号价值学习器在预算约束下优先选择高价值融合输出。三个HRC数据集上的跨被试评估显示匹配融合优于打乱控制，估计增益与实现增益相关，并在预算约束下降低Brier损失和有害融合采用。外部多模态数据集验证表明VECTA可作为事后决策层直接应用于任务特定预测器而无需重训练。",
+        "recommended": false
+      }
+    },
+    "25567de63a3b4ec0dfe8f385adf3c0f7c6ee3801fd4ab9422dee33bd58700570": {
+      "scored_at": "2026-11-26T07:10:07.597035+00:00",
+      "paper": {
+        "paper_title": "EEG-World: Context-Conditioned Dynamics of the Watching Brain",
+        "paper_abstract": "Brain encoding models predict neural responses from audiovisual input, but typically overlook how ongoing brain activity shapes an individual's response. We introduce EEG-World, a recurrent world model that forecasts 10 seconds of EEG band-power dynamics from 6 seconds of preceding EEG and the subsequent audiovisual stimulus. Pretrained on continuous EEG, EEG-World learns shared neural dynamics and adapts to unseen individuals through lightweight subject-specific readouts. Using 2,584 hours of EEG from 78 participants, we show that nonlinear recurrent forecasting surpasses strong history-aware linear baselines at scale. EEG-World achieves a forecasting correlation of 0.261 versus 0.233 for the strongest history-and-video linear model, with a 3.3-second forecasting-horizon advantage. Its learned dynamics transfer to unseen participants, outperforming the linear baseline in 23 of 24 individuals after calibration. While ongoing EEG history accounts for most predictive performance, controlled stimulus analyses reveal an additional video-dependent component. This component also enables evaluation of visual representations, with V-JEPA 2 improving clip-locked prediction by 35% over combined CLIP and DINOv2 features. Our results demonstrate the value of transferable neural dynamics for individual EEG forecasting and highlight the importance of separating state-driven from stimulus-driven predictability.",
+        "paper_url": "http://arxiv.org/abs/2611.32825v2",
+        "published": "2026-11-24T15:40:38Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 68,
+        "reason": "论文聚焦EEG动态预测与跨被试迁移，与用户的EEG、深度学习、跨被试迁移学习兴趣有明确交集；但没有涉及脑机接口、运动想象分类或Transformer，且任务不是运动想象分类，因此只能算邻近方向而非核心匹配。",
+        "summary": "论文提出EEG-World，一个递归世界模型，用6秒既往EEG和随后的视听刺激预测未来10秒EEG频带功率动态。模型在连续EEG上预训练，并通过轻量被试特异读出适配未见个体。使用78名参与者共2584小时EEG，非线性递归预测优于强历史感知线性基线，预测相关性为0.261对0.233，并具3.3秒预测时域优势；校准后在24名个体中的23名优于线性基线。分析表明持续EEG历史贡献大部分预测性能，同时存在额外的视频依赖成分，并可用于评估视觉表征。",
+        "recommended": false
+      }
+    },
+    "60f436ab4bb9dcd9baa4c863245166da86bb8fb19a633ca03d1ad0f043eb4e37": {
+      "scored_at": "2026-11-26T07:10:12.789812+00:00",
+      "paper": {
+        "paper_title": "Accuracy of Noise Ceiling Estimators for Brain Scores",
+        "paper_abstract": "The internal activations of modern machine learning models align surprisingly well with the activities recorded in real brains. In the last five years, the alignment between encoding models and brain activities, often called brain scores, has steadily increased. Because brain recordings are noisy, there exists an upper bound to the brain scores that any model can achieve. This bound, called the noise ceiling, is crucial for two reasons: it determines whether further improvements in model performance are possible, and it enables meaningful comparisons of brain scores across benchmarks. The field has developed multiple approaches to estimate noise ceilings, but the statistical properties of existing estimators remain poorly understood, leaving it unclear in which experimental settings they provide reliable estimates. Here, we introduce a unified mathematical framework for brain recordings, use it to derive closed-form expressions for four commonly used noise ceiling estimators, and provide theoretical predictions for the behavior of each estimator. We validate the theoretical predictions with simulations that we compare to noise ceiling estimates in existing fMRI and EEG datasets. We find that the existing methods underestimate the true noise ceiling in different settings. We conclude with recommendations for best practice in different situations.",
+        "paper_url": "http://arxiv.org/abs/2611.32792v1",
+        "published": "2026-11-24T15:19:07Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 52,
+        "reason": "该论文涉及EEG数据集以及模型与脑活动对齐的评估方法，与用户对EEG和模型评估的通用兴趣有间接关联；但摘要没有证据表明其涉及脑机接口、运动想象分类、深度学习、Transformer或跨被试迁移学习。因此相关性主要停留在EEG分析方法和脑评分统计评估层面，而非核心任务或方法。",
+        "summary": "论文关注编码模型与脑活动对齐得到的脑评分，并指出脑记录噪声导致存在噪声上限。作者提出统一数学框架，推导四种常用噪声上限估计器的闭式表达式，并用模拟及现有fMRI和EEG数据集验证理论预测。结果显示现有方法在不同设置下会低估真实噪声上限，最后给出不同情境下的使用建议。",
+        "recommended": false
+      }
+    },
+    "b3fec2b11bdfe00bf378cab1b84d69879bc59d37ec91cbf3873765c70ee47c4a": {
+      "scored_at": "2026-11-26T07:10:17.405356+00:00",
+      "paper": {
+        "paper_title": "EEGJev: A System One Decision Model and Benchmark for Multi-Task EEG Question Answering",
+        "paper_abstract": "A single electroencephalographic (EEG) recording can support multiple decoding tasks. Fixed-label tests cannot show how EEG foundation models handle changing questions or options. We introduce EEGJev, a fast decision model that scores candidate answers in one pass. Our benchmark, EEGJev-Bench, covers six question types across 19 public EEG sources. We held the recording and options fixed while switching between questions about attributes paired during training, such as facial expression and the hand participants were asked to use. Across 13 test sources, EEGJev selected a label for the requested attribute with 99.70% accuracy (49.20% under uniform choice). Balanced accuracy for the specific answer was 62.04%. Its 95th-percentile response time was shorter than NeuroLM's on matched validation questions answered individually. EEGJev lets users switch decoding targets by changing the question. With EEGJev-Bench, researchers can test whether new decoders follow the question more reliably, identify the correct answer more often, or both.",
+        "paper_url": "http://arxiv.org/abs/2611.32100v1",
+        "published": "2026-11-24T07:20:23Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 48,
+        "reason": "论文涉及EEG解码与多任务问题回答，与用户的EEG研究兴趣有一般关联；但摘要未体现运动想象分类、Transformer结构或跨被试迁移学习，主要贡献是决策模型与基准，因此与核心方向只有间接关联。",
+        "summary": "论文提出EEGJev，一种在单次前向中为候选答案打分并支持多任务EEG问答的快速决策模型，同时构建覆盖19个公开EEG来源、六类问题的EEGJev-Bench。实验在固定记录和选项、切换问题的设置下评估，报告在13个测试来源上按请求属性选标签的准确率为99.70%，特定答案的平衡准确率为62.04%。摘要还称其95百分位响应时间短于NeuroLM在匹配验证问题上的单独回答。该基准用于检验新解码器能否更可靠地跟随问题并更常识别正确答案。",
+        "recommended": false
+      }
+    },
+    "7a5c9ce965f245cc535776724c1d144565697dcbeae1201ce442efc994003edb": {
+      "scored_at": "2026-11-26T07:10:22.325361+00:00",
+      "paper": {
+        "paper_title": "PFedHASNet: A Personalized Federated Hybrid Analog-Spike Network for Multi-Subject Motor Imagery EEG Decoding",
+        "paper_abstract": "Motor imagery electroencephalography (MI-EEG) data are often collected and stored separately across subjects or institutions, and EEG acquisition and annotation remain costly. Training models solely on individual subject data limits the use of information from other subjects, whereas centralizing raw EEG recordings raises privacy and data governance concerns. Federated learning (FL) enables collaborative model training across distributed clients without sharing raw EEG data, providing a practical approach to leveraging information from multiple subjects. Accordingly, we propose PFedHASNet, a personalized federated hybrid analog-spike network for MI-EEG decoding. The shared encoder integrates continuous-valued temporal features, leaky integrate-and-fire (LIF) spike responses, and channel-wise log-variance statistics through learnable fusion weights. Client-private residual adapters and classifiers perform subject-specific feature refinement and personalized prediction, respectively. Experiments on held-out trials from participating subjects across four public MI-EEG datasets show that PFedHASNet achieves the highest mean client macro-F1 among 18 model configurations in cross-model comparisons, while maintaining competitive decoding performance with a compact client-side model in comparisons using the same backbone. Ablation studies further examine the contributions of hybrid representations and personalization components to decoding performance.",
+        "paper_url": "http://arxiv.org/abs/2611.32019v1",
+        "published": "2026-11-24T06:00:22Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 88,
+        "reason": "论文直接涉及EEG、脑机接口和运动想象分类，并采用深度学习与个性化联邦学习处理多被试MI-EEG解码，与跨被试/多被试建模方向高度相关。摘要未提供使用Transformer或明确跨被试迁移学习的证据，因此这些兴趣点只能视为部分或间接相关。",
+        "summary": "论文针对MI-EEG数据分散存储、采集标注成本高以及集中式训练带来的隐私问题，提出个性化联邦学习框架PFedHASNet。该方法在共享编码器中融合连续时间特征、LIF脉冲响应和通道对数方差统计，并通过可学习权重进行融合；客户端使用私有残差适配器和分类器实现被试特定特征细化与个性化预测。实验在四个公开MI-EEG数据集的参与被试留出试次上进行，报告了跨模型比较中最高平均客户端macro-F1，并通过消融实验考察混合表示和个性化组件的贡献。",
+        "recommended": true
+      }
+    },
+    "f2a32be69436c291ecf205225a1aa67506c6b9461292ca3161460de63a8ddb8d": {
+      "scored_at": "2026-11-26T07:10:26.612751+00:00",
+      "paper": {
+        "paper_title": "A generative framework for unified representations bridging electrophysiological and haemodynamic brain activity",
+        "paper_abstract": "Electrophysiological and haemodynamic recordings resolve brain activity at complementary temporal and spatial scales, yet paired acquisition remains difficult to scale. We propose a generative framework that aligns paired multimodal recordings in a unified representation space and generates modality-specific haemodynamic responses from EEG. In paired cohorts, the framework generated fMRI BOLD and fNIRS haemoglobin responses that reproduced regional dynamics, cortical maps, functional connectivity and task structure. Generated BOLD followed Real BOLD time courses and cortical patterns, while Generated haemoglobin responses tracked task-evoked HbO and HbR dynamics. The framework enabled decoding across visual, motor-imagery and mental-arithmetic tasks, independent-record decoding, external BOLD localization and low-sample augmentation. Paired feature-space calibration supported bidirectional retrieval. The proposed framework extends cortical analysis and brain decoding to EEG recordings when Real haemodynamic data are sparse.",
+        "paper_url": "http://arxiv.org/abs/2611.28507v1",
+        "published": "2026-11-21T02:51:36Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 78,
+        "reason": "论文直接涉及EEG、脑机接口解码和运动想象任务，并用生成式深度学习框架实现跨模态表征与EEG解码，与核心兴趣有明确参考价值。摘要未提及Transformer，也未明确验证跨被试迁移学习；仅提到独立记录解码和低样本增强，可能间接相关但证据不足。",
+        "summary": "论文提出一个生成式框架，将配对的多模态脑活动记录对齐到统一表征空间，并可由EEG生成模态特异性的血流动力学响应。该框架生成的fMRI BOLD和fNIRS血红蛋白响应可复现区域动态、皮层图谱、功能连接和任务结构。框架支持视觉、运动想象和心算任务解码，以及独立记录解码、外部BOLD定位和低样本增强，并支持双向检索。作者称该框架可在真实血流动力学数据稀疏时，将皮层分析和脑解码扩展到EEG记录。",
+        "recommended": true
+      }
+    },
+    "76d8a4bbdd584b5dd4515ba7dddc58ce14194b454b11b0bcbbc644f35d998e47": {
+      "scored_at": "2026-11-26T07:10:30.774492+00:00",
+      "paper": {
+        "paper_title": "Benchmarking EEG feature families for ADHD research in children and adolescents: performance and explainability across attention tasks",
+        "paper_abstract": "Attention Deficit Hyperactivity Disorder varies in presentation. Diagnosis requires clinical and developmental assessment. Reproducible electroencephalography measures may complement clinical and behavioural characterisation, but differing feature definitions and evaluation methods hinder comparison. We compared seven feature families and four combinations across attention tasks and assessed the stability of held-out explanations. Two serious games yielded four overlapping attention-task cohorts of 123-140 participants each. Repeated nested participant-held-out evaluation assessed recruitment-group discrimination. Exploratory paired participant-cluster bootstrap tests corrected for multiplicity in two separate families: 72 individual-task contrasts and 18 fusion contrasts. For eight configurations selected after inspecting predictive results, we explained held-out native probabilities before calibration. In the strongest task context, the highest configuration mean AUROC over three repetitions was 0.773, with a fixed-prediction 95% interval of 0.692-0.854 unadjusted for selecting the maximum. Precision, sensitivity and specificity were 0.740, 0.556 and 0.861. In that task, the paired AUROC difference for connectivity minus spectral features averaged +0.2083 across six classifiers and the common 8 s and 16 s durations, with pointwise 95% CI 0.1076-0.3072 and adjusted p = 0.0036. F4-AF4 beta-band coherence led repetition-level attribution summaries in five selected procedures and was selected in every fit. Other contexts showed weaker discrimination and less consistent retention of leading scientific inputs. No general classifier winner emerged. Connectivity and its recurring coherence input warrant independent replication, but do not justify a universal feature recommendation. These exploratory findings do not establish causal task effects, disease mechanisms or diagnostic validity.",
+        "paper_url": "http://arxiv.org/abs/2611.28299v1",
+        "published": "2026-11-20T20:36:44Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 45,
+        "reason": "论文与EEG特征基准和可解释性相关，且采用参与者留出评估，与跨被试泛化的思路有间接关联；但研究任务是儿童青少年ADHD识别，并非运动想象分类或脑机接口，摘要也未涉及深度学习、Transformer或跨被试迁移学习。因此仅属于EEG方法学邻近领域，核心研究兴趣匹配不足。",
+        "summary": "该研究比较了七类EEG特征及其四种组合在注意力任务中区分招募组别的表现，并评估留出解释的稳定性。数据来自两项严肃游戏形成的四个重叠注意力任务队列，每队列123–140名参与者。最强任务情境下最高配置平均AUROC为0.773，连接性特征相对频谱特征的平均AUROC差异为+0.2083。F4-AF4 beta频段相干性在多个归因总结中领先，但其他情境区分能力较弱，作者强调结果需独立复现且不能据此建立诊断有效性。",
+        "recommended": false
+      }
+    },
+    "fda2e779b3b36add073d8a149ba4dc6b12a1c4b23aa453acef059fc25d03ff43": {
+      "scored_at": "2026-11-26T07:10:35.256862+00:00",
+      "paper": {
+        "paper_title": "On the Complete Feature Set for ADHD Classification in Children and Adolescents Based on EEG Signals",
+        "paper_abstract": "Attention-deficit/hyperactivity disorder is a neurodevelopmental condition that can affect attention, activity and impulse control. Electroencephalography (EEG) records brain activity as children and adolescents perform cognitive tasks. However, comparing features derived from these recordings requires consistent signal preparation, shared analysis windows and documented quality decisions. We curated 669 existing BALLADEER recordings from 156 participants across five task conditions so that researchers can compare seven EEG feature families on the same time intervals for each participant and task. The dataset links continuous signals to precomputed measurements from 115 feature definitions or templates and records the quality decisions made for each recording. Analyses must still account for repeated measurements within participants, residual artefacts and differences between acquisition systems. Technical validation covered signal integrity, numerical checks on feature estimators and completeness of the released files. In every task, the median proportion of recording time retained after preprocessing was 100%. To illustrate reuse, we report saved participant-held-out evaluations comparing XGBoost using all seven families on eight-second windows with a predictor based only on recruitment-group prevalence in the training fold. Recruitment-group discrimination was stronger in Robots than in the three Slackline conditions. These descriptive results from overlapping cohorts do not establish diagnostic validity. The dataset, curation software and aggregate results for the predictive example are publicly available.",
+        "paper_url": "http://arxiv.org/abs/2611.27970v1",
+        "published": "2026-11-20T18:51:08Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 45,
+        "reason": "论文使用EEG进行ADHD分类，与用户的EEG和分类兴趣有间接关联；但任务不是运动想象分类，也未涉及脑机接口、深度学习、Transformer或跨被试迁移学习。摘要中的留出被试评估不等同于跨被试迁移学习，因此核心研究方向匹配证据不足。",
+        "summary": "该论文构建了来自156名儿童和青少年的669条EEG记录数据集，覆盖五种任务条件，便于在相同时间区间比较七类EEG特征。数据集包含115个特征定义或模板的预计算测量及质量决策，并进行了信号完整性和特征估计数值检查。论文还报告了使用全部七类特征的XGBoost在8秒窗口上的留出被试评估，并与仅基于招募组流行率的预测器比较；作者强调这些描述性结果不构成诊断有效性证据。",
+        "recommended": false
+      }
+    },
+    "9a58389d1d90746c15a1e6f54c73aa2be179c30cfaf12b7ff3ac2ef2e5d203a6": {
+      "scored_at": "2026-11-26T07:10:39.271169+00:00",
+      "paper": {
+        "paper_title": "LingSante-Pulse: Unified Physiological Pretraining through Random-Feature Prediction and Cross-Modal Alignment",
+        "paper_abstract": "Clinical monitoring and wearable devices capture complementary physiological signals, but their partially overlapping modality coverage makes within-signal information and cross-modal relationships difficult to exploit jointly. We introduce LingSante-Pulse, a unified, general-purpose and flexible physiological representation framework that learns from these heterogeneous recordings. A shared, signal-conditioned encoder processes each physical channel independently and supports different numbers and combinations of signals for multimodal assessment and single-sensor inference. Pairwise cross-modal alignment, structured random-feature prediction (RFP) and masked waveform reconstruction jointly learn physiological relationships and preserve informative within-signal structure. Across 38 general physiological task configurations spanning PPG, ECG, EEG and EMG, the frozen encoder achieves the best dataset-balanced mean rank in each domain. In sleep assessment, multimodal staging on the HMC dataset and EEG-only staging on the Sleep-EDF dataset reach Macro-F1 scores of 0.7784 and 0.7941, respectively, while single-lead ECG apnea screening achieves an AUROC of 0.9183. Controlled experiments show that function prediction and waveform reconstruction provide complementary supervision for retaining temporal and rhythmic information. Representations learned under continually refreshed random supervision generalize to unseen teacher realizations, and correct auxiliary modality correspondence improves respiration-only representations. These results demonstrate that a single encoder can learn reusable physiological features across signal types, prediction targets and sensor configurations from partially overlapping recordings.",
+        "paper_url": "http://arxiv.org/abs/2611.27206v1",
+        "published": "2026-11-20T06:45:57Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 55,
+        "reason": "论文涉及EEG等生理信号的统一预训练与表征学习，与EEG深度学习和跨模态表征有间接关联；但摘要没有涉及脑机接口、运动想象分类、Transformer或跨被试迁移学习，核心任务匹配不足。",
+        "summary": "论文提出LingSante-Pulse，一个面向异质生理记录的统一表征框架，使用共享的信号条件编码器独立处理各通道，并支持多模态与单传感器推理。方法结合成对跨模态对齐、结构化随机特征预测和掩码波形重建。实验覆盖PPG、ECG、EEG和EMG的38种任务配置，并在睡眠分期和单导联ECG呼吸暂停筛查上报告结果。",
+        "recommended": false
+      }
+    },
+    "25fd9a713bf9d25842cf0004d7a445116d1c2f8f477d1eda36cd867fad33e269": {
+      "scored_at": "2026-11-26T07:10:43.470072+00:00",
+      "paper": {
+        "paper_title": "Mind World Models: Joint Learning of Motor EEG Representations and Action-Conditioned World Dynamics",
+        "paper_abstract": "Motor decoding from electroencephalography (EEG) supports non-invasive brain-computer interfaces, yet existing methods either rely on costly cue-based trials and coarse categorical labels or use pretraining objectives that do not directly capture how movement unfolds, limiting their ability to learn transferable motor representations. To this end, we propose the Mind World Model (MWM), a framework that learns motor EEG representations from scalable naturalistic EEG and egocentric video without action annotations. MWM treats EEG observed up to the current frame as the latent action of a world model: a mind model encodes the EEG, and a world model uses it to predict the representation of a future frame, yielding a movement-grounded pretraining objective. We further introduce the Lateralization-Aware Transformer (LAT), which uses frame averaging to separate shared bilateral from side-specific lateral features, encoding hemispheric correspondence to reduce the burden of learning left-right relationships from data. MWM pretraining produces two models: a mind model for downstream motor decoding and a world model that can be adapted to prediction conditioned on real actions, opening a scalable and flexible path to collect egocentric data for embodied AI. Across 9 classification and 7 regression tasks, the mind model improves task-averaged balanced accuracy by 5.9% and Pearson correlation by 16.2% relative to the strongest baseline in each task family. Compared with an inverse-dynamics latent-action baseline, the world model achieves lower prediction error and benefits 3.3 times more from matched real actions within recordings and 4.7 times more on held-out subjects.",
+        "paper_url": "http://arxiv.org/abs/2611.27029v1",
+        "published": "2026-11-20T03:00:38Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 88,
+        "reason": "论文直接涉及EEG运动解码与无创脑机接口，并提出Transformer变体LAT学习运动EEG表征，与深度学习、Transformer和运动相关任务高度匹配。摘要还强调可迁移运动表征及在留出被试上的优势，和跨被试迁移学习密切相关；但没有明确以运动想象分类为任务，也未提供跨被试迁移学习的完整实验设置细节。",
+        "summary": "论文提出Mind World Model框架，在无动作标注的情况下，从自然场景EEG和第一视角视频联合学习运动EEG表征与世界模型动态。它把当前帧之前的EEG当作世界模型的潜在动作，用思维模型编码EEG，并预测未来帧表征，形成运动 grounded 的预训练目标。论文还提出Lateralization-Aware Transformer，通过帧平均分离双侧共享特征与侧特异特征。预训练得到思维模型和世界模型，前者用于下游运动解码，后者可适配真实动作条件下的预测；在9个分类和7个回归任务上相对最强基线有所提升。",
+        "recommended": true
+      }
     }
   },
   "deliveries": {
@@ -257,9 +417,15 @@
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2a55179a4dc7da9c11d029c14b3fec4cb49324cf2b4fdbb637343ac7fa550b1b": "2026-11-25T02:21:29.823053+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:96d5c64d32c2cc95f88c6db8c18a57e055ed8b11a01d3f1ecd85ff374a225b41": "2026-11-25T02:21:29.823053+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:de9961d25771954f00b101c5c1aca37daa7dbd2e640a9232b6093e5111ec9c95": "2026-11-25T02:21:29.823053+00:00",
-    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:a3f028ac09c277fc56da35009c40e799ffbd2893bc175e189c4bab607f100190": "2026-11-25T02:21:29.823053+00:00"
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:a3f028ac09c277fc56da35009c40e799ffbd2893bc175e189c4bab607f100190": "2026-11-25T02:21:29.823053+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:7a5c9ce965f245cc535776724c1d144565697dcbeae1201ce442efc994003edb": "2026-11-26T07:10:46.415572+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:25fd9a713bf9d25842cf0004d7a445116d1c2f8f477d1eda36cd867fad33e269": "2026-11-26T07:10:46.415572+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:f2a32be69436c291ecf205225a1aa67506c6b9461292ca3161460de63a8ddb8d": "2026-11-26T07:10:46.415572+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:25567de63a3b4ec0dfe8f385adf3c0f7c6ee3801fd4ab9422dee33bd58700570": "2026-11-26T07:10:46.415572+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:f58b4a3290a885740e04b6027b26b95e233478d7a06e3bb96372725f7b0e07ba": "2026-11-26T07:10:46.415572+00:00"
   },
   "reports_sent": {
-    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-25": "2026-11-25T02:21:29.823053+00:00"
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-25": "2026-11-25T02:21:29.823053+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-26": "2026-11-26T07:10:46.415572+00:00"
   }
 }
