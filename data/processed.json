@@ -410,6 +410,166 @@
         "summary": "论文提出Mind World Model框架，在无动作标注的情况下，从自然场景EEG和第一视角视频联合学习运动EEG表征与世界模型动态。它把当前帧之前的EEG当作世界模型的潜在动作，用思维模型编码EEG，并预测未来帧表征，形成运动 grounded 的预训练目标。论文还提出Lateralization-Aware Transformer，通过帧平均分离双侧共享特征与侧特异特征。预训练得到思维模型和世界模型，前者用于下游运动解码，后者可适配真实动作条件下的预测；在9个分类和7个回归任务上相对最强基线有所提升。",
         "recommended": true
       }
+    },
+    "1c53dd56b817d89cb59a37af23027d94cb44a2915992c628fde9c3396607a7c8": {
+      "scored_at": "2026-11-27T07:07:09.349543+00:00",
+      "paper": {
+        "paper_title": "Large Reported CHB-MIT Adaptation Gains Disappear with Pretrained Encoders and Matched Probes",
+        "paper_abstract": "Dani and Liebe (2026) (DL) report that adapting the final encoder block of BIOT and CBraMod with self-supervised learning (SSL) improves CHB-MIT seizure-detection ROC-AUC by 36.2 and 29.5 points over linear probing. We investigate these results with their released code and an independent pipeline. The release loads pretrained weights for adaptation only when an otherwise unset configuration key is supplied, and its CBraMod probe reads the reconstruction head with dropout active. With pretrained initialisation and a probe on the encoder output in evaluation mode, the fixed-recipe adaptation gain on DL's split is -0.6 points for BIOT (95% interval [-3.8, +2.6]) and +0.01 for CBraMod ([-0.02, +0.04]) across five seeds. Across DL's split and five subject rotations on CHB-MIT and Siena Scalp EEG, with equally tuned linear probes (30 configurations, up to 500 epochs, validation-based early stopping), mean adaptation effects range from -1.1 to +5.7 ROC-AUC points over 18 comparisons (related settings and feature variants). Twelve of 18 support equivalence within +/-3 points under dependence-adjusted inference (8 of 12 rotation and 4 of 6 fixed-split comparisons); six are unresolved. After correcting rotation intervals for dependence, no positive effect has a 95% interval excluding zero. The +/-3 margin is an analysis threshold, not a clinically validated one, and smaller margins support fewer equivalences. Two fixed-probe gains near +21 points shrink under the same tuning, with smaller benefits unresolved. We also audit a CHB-MIT protocol shared by at least 14 papers. No tested configuration reproduces DL Table 1 as a whole. These findings concern the tested configurations; the encoder-level probe and subsequent checks were chosen post hoc.",
+        "paper_url": "http://arxiv.org/abs/2611.26929v1",
+        "published": "2026-11-20T00:25:41Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 75,
+        "reason": "论文涉及EEG、Transformer类模型（BIOT、CBraMod）、自监督适应和跨被试旋转评估，与用户的EEG深度学习、Transformer及跨被试迁移学习兴趣密切相关。但任务为CHB-MIT癫痫检测而非运动想象分类，摘要未提供运动想象或脑机接口范式的证据，因此不能直接匹配核心任务。",
+        "summary": "该文重新检验Dani和Liebe（2026）关于BIOT与CBraMod在CHB-MIT上自适应提升癫痫检测ROC-AUC的报告。作者使用发布代码和独立流程发现，在预训练初始化、评估模式编码器输出探针及均衡调参后，原报告的大幅提升消失，18项比较的平均适应效应为-1.1至+5.7个ROC-AUC点，多数比较支持±3点内的等效性。作者还审计了一个被至少14篇论文共用的CHB-MIT协议，并指出没有测试配置能整体复现原表1。",
+        "recommended": true
+      }
+    },
+    "954f3027880484db64fc7fbefd94fb8b0c28ac47a8cd5833832a098dc948a065": {
+      "scored_at": "2026-11-27T07:07:13.495298+00:00",
+      "paper": {
+        "paper_title": "Self-Supervised Learning with Recursive Quadrature Filters for Neural Time Series",
+        "paper_abstract": "We develop self-supervised methods for training Recursive Quadrature Filter (RQF) encoders on unlabeled time series. RQFs are biologically motivated, complex-valued temporal filters that form a special class of diagonal state-space models (SSMs). Each RQF acts as a band-pass filter whose selectivity is determined by two learnable parameters: its tuning frequency and bandwidth. We separately introduce a self-supervised learning objective based on prediction error; the encoder is trained so that its current state predicts its own future activity. In the windowed mode, the summary of the current window predicts the summary of a later window; in the dense mode, the state at the current timestep predicts future log-power. Each RQF encoder is pretrained on a dataset and then a readout (e.g., a task-specific classifier) is trained on the output of the RQF encoder, with the encoder either frozen or fully fine-tuned. For multichannel EEG and intracranial recordings, a shared encoder processes each channel separately, and a spatial readout combines the channel representations using electrode locations. Across four neural benchmarks using scalp or intracranial EEG, the pretrained RQF system performs close to the state of the art while using a small fraction of the parameters of the competing models. For example, a 110k-parameter RQF system achieves 0.9247 +/- 0.0022 test AUROC on 100-s TUAB segments, above SAMBA (0.9054) at the same context with 9 times as many parameters, and 0.9040 +/- 0.0019 on 10-s segments, comparable to EEG foundation models with 3.2M-369M parameters.",
+        "paper_url": "http://arxiv.org/abs/2611.26856v1",
+        "published": "2026-11-19T22:17:55Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 62,
+        "reason": "该论文与用户的EEG和深度学习兴趣相关，涉及EEG/颅内记录的自监督表征学习与参数高效编码器，可作为EEG预训练方法参考。但摘要未涉及运动想象分类、脑机接口范式、Transformer或跨被试迁移学习，因此与核心任务只是邻近领域关联。",
+        "summary": "论文提出用自监督方法训练递归正交滤波器（RQF）编码器，RQF是复数带通滤波器类对角状态空间模型，由可学习的调谐频率和带宽决定选择性。作者引入基于预测误差的自监督目标，包括窗口摘要预测和稠密未来对数功率预测，并在预训练后用任务分类器读取编码器输出。多通道EEG/颅内记录采用逐通道共享编码器和结合电极位置的空间读出。四个神经基准上，预训练RQF系统以很少参数接近当前最优，例如10万参数级系统在TUAB片段上取得较高AUROC。",
+        "recommended": false
+      }
+    },
+    "86c7e38526e6e0299d31d13c5e09332f1c0b44b18b45d4df5836b728d63a8688": {
+      "scored_at": "2026-11-27T07:07:16.899191+00:00",
+      "paper": {
+        "paper_title": "Introducing ReTiNA-Cinema: Real-Time Neuro-Augmented Cinema via Generative AI",
+        "paper_abstract": "Generative artificial intelligence (AI) is currently revolutionizing content creation across various media. Between those who fear it will replace human creativity and those who regard it solely as a tool, many in the creative industries are beginning to view generative AI as a collaborator. Yet interaction with these systems often relies on discrete, turn-based prompting that can interrupt flow and constrain expression to symbolic text. We explore physiological signals as a source of continuous adaptation without explicit commands, as a path toward embodied co-creation. This paper presents ReTiNA-Cinema, a methodological proof-of-concept that integrates electroencephalography (EEG) with generative AI to enable physiologically guided visual modulation of cinematic material. By linking physiological activity to the evolving appearance of a film, the system provides a basis for exploring embodied sense-making, in which viewers' bodily responses contribute to shaping the sensory experience through which they interpret the unfolding scenes. The system combines real-time EEG signal processing with a generative AI pipeline based on Stable Diffusion Turbo for frame-level image transformation. Single-user and two-user configurations map EEG-derived features to prompt selection and transformation strength. ReTiNA-Cinema offers a framework for exploring how the physiology of viewers might influence a film's visual presentation, extending the possibilities for participation in cinematic experiences and storytelling. This system raises questions about the effects on engagement, perceived agency, and emotional response, which remain open to future empirical study. Video illustrations: https://www.youtube.com/playlist?list=PLMu36WzSQKiVeBnrUdwUAoUhqLqGX3_bw and implementation: https://github.com/KairosHive/retina-cinema.",
+        "paper_url": "http://arxiv.org/abs/2611.26469v1",
+        "published": "2026-11-19T17:30:43Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 55,
+        "reason": "论文涉及EEG实时信号处理与生成式AI结合，与用户的EEG研究兴趣有直接交集，也属于神经增强/脑机交互的邻近应用；但摘要未涉及运动想象分类、Transformer、跨被试迁移学习等核心方向，深度学习仅体现为Stable Diffusion Turbo生成管线，参考价值偏间接。",
+        "summary": "论文提出ReTiNA-Cinema概念验证系统，将脑电图与生成式AI结合，实现由生理信号引导的电影视觉调制。系统包含实时EEG信号处理和基于Stable Diffusion Turbo的帧级图像变换，并支持单用户与双用户配置，将EEG特征映射到提示选择和变换强度。作者将其定位为探索具身共创和观众生理影响电影视觉呈现的方法框架，关于参与感、能动性和情绪反应的效果仍待未来实证研究。",
+        "recommended": false
+      }
+    },
+    "762eb25877095f0d40c57bc76373f23de073e7dacae34aa2f412c263211a3d22": {
+      "scored_at": "2026-11-27T07:07:21.887682+00:00",
+      "paper": {
+        "paper_title": "Temporal Contrastive Alignment of EEG and Naturalistic Video Only Beats Linear Decoding On In-Sample Stimuli",
+        "paper_abstract": "Neural tracking, the temporal alignment between a continuous stimulus and the elicited brain response, enables decoding of attention from electroencephalography (EEG), yet its application to naturalistic video remains largely unexplored and mainly relies on linear canonical correlation analysis (CCA). We investigate whether a temporal contrastive model, pairing pretrained VideoMAE features with a lightweight EEG encoder trained on a correlation-based InfoNCE objective, can strengthen EEG-video alignment. Benchmarked against CCA under three generalization regimes, the model outperforms CCA across subjects (leave-one-subject-out), matches it within the stimulus manifold (leave-video-segment-out), and falls behind CCA when extrapolating to entirely novel videos (leave-one-video-out). Because this advantage appears only for seen stimuli, we probe its basis: a sham control shows that a high accuracy does not certify genuine alignment, as a synthesized correspondence fit to the seen stimuli can reproduce it without genuine temporal alignment in the training pairs. This does not preclude practical use: on a downstream attention-decoding task with seen stimuli, the model remains better than CCA since the decoding only requires a strong statistical coupling, regardless of whether that coupling is physiologically meaningful. Using a group-averaged EEG reference, we further show that genuine, generalizable coupling is nonetheless learned, only buried in the noise of single-subject EEG. These results indicate that progress hinges on data scale, diversity, and single-subject denoising.",
+        "paper_url": "http://arxiv.org/abs/2611.26258v1",
+        "published": "2026-11-19T15:31:27Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 72,
+        "reason": "该论文涉及EEG解码、深度学习与跨被试评估（leave-one-subject-out），并使用预训练VideoMAE特征，与EEG、深度学习、Transformer特征和跨被试泛化方向有明显关联；但研究任务是EEG-自然视频时序对齐与注意解码，不是运动想象分类，摘要也未提供脑机接口运动想象范式或分类性能证据。",
+        "summary": "论文研究用基于相关性的InfoNCE目标训练轻量EEG编码器，并与预训练VideoMAE特征配对，以增强EEG与自然视频的时序对齐，并与CCA在三种泛化设置下比较。结果显示该模型在跨被试设置下优于CCA，在刺激流形内与CCA相当，但在全新视频外推时落后于CCA。作者通过 sham 对照指出高准确率不一定证明真实对齐，并发现下游注意解码在已见刺激上仍可优于CCA。使用组平均EEG参考时还显示存在真实可泛化耦合，但被单被试噪声掩盖，进展依赖数据规模、多样性和单被试去噪。",
+        "recommended": true
+      }
+    },
+    "86e1ce850c8c1158e30d79ae341130cde0ae0298a7e062a3345484c9e1d0877b": {
+      "scored_at": "2026-11-27T07:07:25.272447+00:00",
+      "paper": {
+        "paper_title": "Transition Dynamics Matter: Hidden Markov Scoring of Epileptogenic Channels in SEEG",
+        "paper_abstract": "Stereo-electroencephalography (SEEG) represents the most effective technique for the detection of the Epileptogenic Zone (EZ) in drug-resistant epilepsy. This procedure produces a multi-dimensional signal with hundreds of components, named channels, each associated with a different brain location. In this work, we propose a joint Hidden Markov Model (HMM), in which each SEEG channel is described by a latent Markov chain, with states shared across the network and channel-specific transition probabilities. Accordingly, we develop a detection algorithm that identifies the channels belonging to the EZ by quantifying, through the Kullback-Leibler divergence, the difference between their transition probabilities in the inter-ictal period and at seizure onset. We evaluate our framework in SEEG recordings from 30 patients with drug-resistant epilepsy and compare it with a benchmark that operates in the same observation space but does not consider a latent-state structure. Compared against medically validated EZ definitions, our study shows that modeling channel-specific temporal transitions can improve EZ localization and offer a data-driven framework to investigate the latent dynamics underlying seizures.",
+        "paper_url": "http://arxiv.org/abs/2611.26142v1",
+        "published": "2026-11-19T13:58:28Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 32,
+        "reason": "该论文使用SEEG（立体脑电图）进行癫痫致痫区通道检测，与EEG信号分析有邻近关联；但未涉及脑机接口、运动想象分类、深度学习、Transformer或跨被试迁移学习，因此这些核心兴趣均无证据支持。其方法为隐马尔可夫模型和KL散度，属于传统统计建模，与用户关注的方法方向关联较弱。",
+        "summary": "论文针对耐药性癫痫，提出一种联合隐马尔可夫模型，将每个SEEG通道描述为共享状态但具有通道特定转移概率的隐马尔可夫链。作者利用KL散度比较发作间期与癫痫发作起始时的转移概率差异，从而识别属于致痫区的通道。研究在30名患者的SEEG记录上评估，并与未考虑隐状态结构的基准方法比较，结果显示建模通道特定时间转移可改善致痫区定位。",
+        "recommended": false
+      }
+    },
+    "a18c0ee5bb2cc3b9eb5670b9e6ae792b30ea3612a7ccdfcbd274832aabb5a28c": {
+      "scored_at": "2026-11-27T07:07:28.638253+00:00",
+      "paper": {
+        "paper_title": "Reading Across Space, Time and Frequencies: Tensor Decomposition of SEEG Signals to Support Epileptogenic Zone Definition",
+        "paper_abstract": "Stereo-electroencephalography (SEEG) is an invasive technique used in the presurgical evaluation of drug-resistant epilepsy to support the localization of the Epileptogenic Zone (EZ). SEEG data are particularly complex to analyze, as they include hundreds of components, named channels, each associated with a different brain site, with interactions varying in both time and frequency. In this study, we propose a new framework for SEEG analysis, based on the Canonical Polyadic (CP) decomposition, to extract the latent modes underlying seizure generation. We model SEEG signals as a third-order tensor (channel x time x frequency), and factorize the tensor into rank-1 factors. We then exploit the channel-specific factor as an unsupervised feature set for identifying the EZ. The framework is validated on SEEG-recorded seizures from 35 patients with drug-resistant epilepsy. The results show that the joint combination of multiple frequency bands significantly enhances classification performance.",
+        "paper_url": "http://arxiv.org/abs/2611.26137v1",
+        "published": "2026-11-19T13:56:08Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 40,
+        "reason": "该论文涉及SEEG（颅内脑电）信号分析与癫痫致痫区识别，仅与“EEG/神经信号分析”存在邻近领域关联；未涉及脑机接口、运动想象分类、深度学习、Transformer或跨被试迁移学习，因此核心研究兴趣缺乏证据支持。",
+        "summary": "论文提出基于Canonical Polyadic分解的SEEG分析框架，将SEEG信号建模为通道×时间×频率的三阶张量并分解为秩1因子，利用通道相关因子作为无监督特征识别致痫区。研究在35名耐药性癫痫患者的SEEG发作数据上验证，结果显示多频带联合可提升分类性能。",
+        "recommended": false
+      }
+    },
+    "90f41ccf5601eb7e449ca596e30a16cc10964ff392f447814e33643e59e9f236": {
+      "scored_at": "2026-11-27T07:07:35.707121+00:00",
+      "paper": {
+        "paper_title": "Disentangling Monitor Hardware Artifacts and Smoothing Lag for Shift-Robust Intraoperative EEG and Hemodynamic Risk Calibration",
+        "paper_abstract": "Commercial intraoperative electroencephalography (EEG) and blood pressure monitors introduce cyclic impedance pulses, smoothing delays, direct-current (DC) drift, and cuff holds that confound risk forecasting and uncertainty calibration. We developed a causal signal-conditioning and shift-robust conformal calibration framework across 5,439 public anesthesia procedures. Streaming filters blank 10.13-min 64-Hz impedance checks, apply unclipped post-notch conditioning, separate 63-s suppression-ratio lag, and distinguish three-channel cuff inflations from dropouts across propofol-remifentanil total intravenous anesthesia (TIVA; N = 3,214), volatile anesthesia (N = 2,046), European endoscopy sedation (N = 171), and DC-coupled surgery (N = 8). De-impedanced cortical tree ensembles were compared against deep sequence models, paired with patient-cluster Subgroup-Covariate-Weighted Conformal Risk Control (CRC) and lag-buffered online Conformal Proportional-Integral-Derivative (PID) tracking. Pre-filter blanking removed 97.90% and 97.60% of false flatline conflicts while preserving 99.23% and 98.96% of deep suppression. On unseen TIVA surgeries (N = 525), cortical features achieved area under the precision-recall curve (AUPRC) 0.3135 (1.94% prevalence) and 0.1627 (0.82% lag-free prevalence), with no detectable difference from deep encoders (p >= 0.36) and no cortical gain for hypotension (0.3432 vs. 0.3437, p = 0.784). Zero-retraining volatile transfer (N = 1,048) showed no detectable difference from an end-tidal gas oracle on lag-free suppression (0.0820 vs. 0.0736, p = 0.472). Subgroup-Covariate-Weighted CRC bounded all 70 TIVA shift cells at <= 4.38% (alpha = 5.0%) in 66.32 ms per 30-s epoch. Causal artifact disentangling and shift-aware conformal calibration support reliable real-time intraoperative risk bounds within explicit physiological observability limits.",
+        "paper_url": "http://arxiv.org/abs/2611.25765v1",
+        "published": "2026-11-19T09:05:22Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 45,
+        "reason": "论文涉及 EEG 信号处理、深度学习序列模型对比以及跨场景/跨队列的偏移鲁棒校准，与“EEG”“深度学习”“迁移/校准”有间接方法关联；但没有证据支持运动想象分类、脑机接口范式或 Transformer 架构，也未体现跨被试运动想象迁移。整体属于临床 EEG 风险预测与硬件伪迹校准，而非用户核心的 BCI 运动想象任务。",
+        "summary": "该论文针对术中商用 EEG 和血压监测仪的周期性阻抗脉冲、平滑延迟、直流漂移和袖带保持等硬件伪迹，提出因果信号调理与偏移鲁棒保形校准框架。研究基于 5,439 例公开麻醉手术，使用流式滤波、伪迹分离和患者簇加权保形风险控制，并与深度序列模型比较。结果报告了预滤波消除假平线冲突并保留抑制信号，以及在未见 TIVA 手术和零重训练挥发性麻醉迁移中的风险界限与延迟表现。",
+        "recommended": false
+      }
+    },
+    "27cb244c755ef76077ac13b76a070b6acc1b942be17dbb9bf43a2fa42bc88820": {
+      "scored_at": "2026-11-27T07:07:41.105585+00:00",
+      "paper": {
+        "paper_title": "When Should Deployed BCI Decoders Adapt? A Resource-Priced Ladder for Frozen EEG Trunks",
+        "paper_abstract": "When should a deployed MI decoder spend adaptation resources-not only how to adapt under shift? We study a thin control layer outside a frozen encoder: a resource ladder (factory -> Bayesian head -> affine map, with full fine-tune as an escape hatch) governed by regime-aware gating under a utility that prices accuracy, fit time, and label cost. The head is Bayesian in the conjugate sense: a Normal-Inverse-Wishart prior over the class conditional Gaussians in embedding space, updated in closed form (no gradients) as labelled trials arrive. Full estimators, constants, and the reanalysis code are in the companion paper and the ancillary bundle of this submission. Thesis: adaptation should be gated and capped, not always-on and not blindly fine-tuned. Evidence: (i) utility-max gating over-adapts on clean data that already carries session drift; a clean-referenced gate restores low false-entry rates (e.g. dropping the adaptation rate from 0.56 to 0.11 on field-like sessions, with the cascade staying on the factory decoder for ~87% of clean cells). (ii) Under severe synthetic stress, a lightweight LDA head matches or exceeds the frozen trunk's accuracy across five encoder architectures (n=155 subject x trunk cells, pooled across shared subjects), at ~23x lower fit time than full warm-start fine-tuning. Always-on baselines favor capping the default below full fine-tune. (iii) In two no-perturbation BNCI session checks the factory model transferred without intervention (no reliable head gain), so the control layer's value under natural drift is cost-efficiency and clean-safety rather than demonstrated accuracy gains. (iv) Adaptation severity does not follow a universal ordinal ladder across datasets, highlighting the need for dynamic gating over fixed adaptation policies.",
+        "paper_url": "http://arxiv.org/abs/2611.25315v1",
+        "published": "2026-11-19T00:34:41Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 82,
+        "reason": "论文直接讨论EEG/BCI运动想象解码器部署后的自适应控制、冻结编码器上的轻量适配以及数据偏移下的门控策略，与脑机接口、运动想象分类和迁移/自适应学习高度相关。摘要提到会话漂移、共享被试和多种编码器架构，但对Transformer和明确的跨被试迁移学习没有直接证据支持，因此未给更高分。",
+        "summary": "论文研究部署的运动想象解码器应在何时花费自适应资源，而不是只关注如何自适应。作者在冻结编码器外提出资源阶梯（factory→Bayesian head→affine map，并以全量微调作为逃生选项），用权衡准确率、拟合时间和标签成本的效用函数及状态感知门控来管理。贝叶斯头采用Normal-Inverse-Wishart共轭先验，在嵌入空间中对类条件高斯进行闭式更新。实验显示干净参考门控可降低误进入率；严重合成压力下轻量LDA头在五种编码器架构上匹配或超过冻结主干且拟合时间约低23倍；两个无扰动BNCI会话中工厂模型无需干预即可迁移，控制层价值主要体现在成本效率和干净数据安全性。",
+        "recommended": true
+      }
+    },
+    "c599d6a23fadd7961f75ba10e753b2412d0a1fbb3ead16ba8844b3c6fa6458da": {
+      "scored_at": "2026-11-27T07:07:45.440338+00:00",
+      "paper": {
+        "paper_title": "Data-driven simulation of the brain's response to stimulation: a system identification approach for closed-loop neuromodulation, piloted in adaptive deep brain stimulation",
+        "paper_abstract": "Closed-loop neuromodulation uses a physiomarker to control stimulation. Developing such controllers requires exploring a large space of strategies and parameters, which is often not feasible with the human-in-the-loop. Simulation environments offer an alternative. Adaptive deep brain stimulation (aDBS) for Parkinson's disease is a stereotypical application: while physiomarker identification progresses rapidly, clinically available control is limited to threshold and proportional strategies. We propose to identify dynamical models of the brain with and without deep brain stimulation (DBS) using the sparse identification of nonlinear dynamics (SINDy) framework. Identified ex post from existing recordings, such models are a middle ground between abstract bottom-up models and the realistic but difficult-to-access human-in-the-loop. Forecasting neural activity from real initial conditions, the models create a simulation environment for \"what if\" analyses of DBS changes. In a proof-of-concept with EEG data from a single subject, we train and evaluate threshold, proportional, proportional-integral-derivative (PID), and proximal policy optimization (PPO) control, aiming to have the simulated data classified as DBS ON at minimal energy. SINDy models fitted on spatially filtered EEG maintained DBS condition-specific characteristics. All aDBS controllers delivered DBS more efficiently than continuous DBS (cDBS), with up to 20.2% energy reduction. Proportional control yielded a small but significant gain over threshold control. PID and PPO achieved a comparable reward advantage over cDBS, with PPO stimulating more conservatively and PID saving the most energy. The approach thus proved feasible, and within this simulation environment, PID control is a strong a-priori choice, while the benefit of deep reinforcement learning may only emerge with richer physiomarker signals.",
+        "paper_url": "http://arxiv.org/abs/2611.24818v1",
+        "published": "2026-11-18T17:50:28Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 50,
+        "reason": "论文涉及EEG和闭环神经调控，并使用PPO等控制/强化学习方法，与用户兴趣中的EEG及深度学习有间接关联；但研究任务不是运动想象分类或脑机接口解码，也未涉及Transformer或跨被试迁移学习，因此与核心方向匹配有限。",
+        "summary": "论文提出用SINDy框架从已有记录中识别有/无深部脑刺激的脑动力学模型，构建用于闭环神经调控策略探索的仿真环境。在单被试EEG数据的概念验证中，训练并评估阈值、比例、PID和PPO控制器，目标是在最小能量下使仿真数据被分类为DBS ON。结果显示所有自适应DBS控制器都比连续DBS更节能，最高减少20.2%能量；PID和PPO相对连续DBS获得相近奖励优势，但PID最节能。作者认为该方法可行，PID是仿真环境中的强先验选择，深度强化学习的收益可能需要更丰富的生理标志信号才能显现。",
+        "recommended": false
+      }
+    },
+    "b2ea09c4b5ffb97928b14afd462407c778eda99cb49b85daaac476e3ef4f03ce": {
+      "scored_at": "2026-11-27T07:07:48.806811+00:00",
+      "paper": {
+        "paper_title": "From real to synthetic: PSG-GAN learns sleep apnea signal dynamics for AI training",
+        "paper_abstract": "Synthetic polysomnography (PSG) data has great potential in healthcare applications, for example in substituting real data that is sensitive and challenging to collect. Previous research on synthetic PSG data has been largely focused on short segments of individual signals, overlooking the inter-signal dynamics related to sleep disorders. In this study, we developed a generative adversarial network (PSG-GAN) for co-synthesizing longer segments of multiple PSG signals with diverse and complex characteristics typical of obstructive sleep apnea (OSA). The synthetic signals appeared realistic, and the electroencephalography and electrooculography band powers were similarly distributed across sleep stages. Moreover, the PSG-GAN learned to mirror signal interactions such as changes in photoplethysmography-based heart rate during and after breathing obstructions. An automatic scoring model trained solely with automatically scored synthetic signals reached good performance on sleep staging (\\k{appa}=0.71 and 0.63) and respiratory event segmentation (\\k{appa}=0.57 and 0.60), on two test sets consisting of healthy volunteers and OSA patients, respectively. This demonstrates the potential of synthetic data in supporting algorithm development for sleep diagnostics. The source code is available at https://github.com/rikuhuttunen/psg-gan.",
+        "paper_url": "http://arxiv.org/abs/2611.24436v1",
+        "published": "2026-11-18T13:53:05Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 22,
+        "reason": "论文涉及多导睡眠图（PSG）中的脑电信号合成与睡眠分期，与EEG信号处理仅有间接关联；未涉及脑机接口、运动想象分类、Transformer或跨被试迁移学习等核心兴趣。相关性主要来自通用EEG/生理信号生成，而非用户的核心任务。",
+        "summary": "该研究提出PSG-GAN，用于联合生成长段多通道PSG信号，以模拟阻塞性睡眠呼吸暂停的复杂信号动态。合成信号在睡眠阶段间的EEG和EOG频带功率分布与真实数据相似，并能反映呼吸阻塞前后基于PPG的心率变化。仅用合成信号训练的自动评分模型在睡眠分期和呼吸事件分割上取得一定性能，作者认为合成数据可用于睡眠诊断算法开发。",
+        "recommended": false
+      }
     }
   },
   "deliveries": {
@@ -422,10 +582,16 @@
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:25fd9a713bf9d25842cf0004d7a445116d1c2f8f477d1eda36cd867fad33e269": "2026-11-26T07:10:46.415572+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:f2a32be69436c291ecf205225a1aa67506c6b9461292ca3161460de63a8ddb8d": "2026-11-26T07:10:46.415572+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:25567de63a3b4ec0dfe8f385adf3c0f7c6ee3801fd4ab9422dee33bd58700570": "2026-11-26T07:10:46.415572+00:00",
-    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:f58b4a3290a885740e04b6027b26b95e233478d7a06e3bb96372725f7b0e07ba": "2026-11-26T07:10:46.415572+00:00"
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:f58b4a3290a885740e04b6027b26b95e233478d7a06e3bb96372725f7b0e07ba": "2026-11-26T07:10:46.415572+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:27cb244c755ef76077ac13b76a070b6acc1b942be17dbb9bf43a2fa42bc88820": "2026-11-27T07:07:52.697038+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:1c53dd56b817d89cb59a37af23027d94cb44a2915992c628fde9c3396607a7c8": "2026-11-27T07:07:52.697038+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:762eb25877095f0d40c57bc76373f23de073e7dacae34aa2f412c263211a3d22": "2026-11-27T07:07:52.697038+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:954f3027880484db64fc7fbefd94fb8b0c28ac47a8cd5833832a098dc948a065": "2026-11-27T07:07:52.697038+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:86c7e38526e6e0299d31d13c5e09332f1c0b44b18b45d4df5836b728d63a8688": "2026-11-27T07:07:52.697038+00:00"
   },
   "reports_sent": {
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-25": "2026-11-25T02:21:29.823053+00:00",
-    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-26": "2026-11-26T07:10:46.415572+00:00"
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-26": "2026-11-26T07:10:46.415572+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-27": "2026-11-27T07:07:52.697038+00:00"
   }
 }
