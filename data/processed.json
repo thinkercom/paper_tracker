@@ -570,6 +570,166 @@
         "summary": "该研究提出PSG-GAN，用于联合生成长段多通道PSG信号，以模拟阻塞性睡眠呼吸暂停的复杂信号动态。合成信号在睡眠阶段间的EEG和EOG频带功率分布与真实数据相似，并能反映呼吸阻塞前后基于PPG的心率变化。仅用合成信号训练的自动评分模型在睡眠分期和呼吸事件分割上取得一定性能，作者认为合成数据可用于睡眠诊断算法开发。",
         "recommended": false
       }
+    },
+    "27ce67c3f3b6be90604a53dddc7b66403ab1af7265cf416a29d01b40ebf75b1e": {
+      "scored_at": "2026-11-28T06:39:18.441638+00:00",
+      "paper": {
+        "paper_title": "GALA: Gallery-Level Alignment for Real-Life Vision Decoding from EEG",
+        "paper_abstract": "Neural decoding of visual experience from electroencephalography (EEG) has achieved strong performance in intra-subject settings, but current methods fail to generalize across individuals: on the standard 200-way benchmark THINGS-EEG-2, top-1 accuracy drops from above 80% within subjects to about 32% for an unseen subject. Adapting a pre-trained encoder to new subjects and sessions typically requires labeled data, a bottleneck whose collection time severely limits practical device deployment. In a practical Brain-Computer Interface (BCI), however, the possible outcomes are known in advance and form a gallery of candidates, and the unlabeled EEG of the user accumulates as soon as the device is used. We propose a new setting, incremental transductive calibration, in which the decoder is calibrated regularly on all the unlabeled EEG received so far and on the known gallery, without any labels. This setting is closer to the conditions of a deployed BCI than the zero-shot and batch evaluations in current use. We evaluate it with a protocol in which queries arrive one at a time, with unknown and possibly unequal frequencies, and each query is decoded before it is used for calibration. In this setting, we introduce GALA : GAllery-Level Alignment, a label-free calibration method which registers the unlabeled EEG embeddings onto the gallery through shrinkage whitening, hubness correction and a Sinkhorn--Procrustes alignment with query frequencies estimated from the buffer, updated after every query. On THINGS-EEG-2, with a gallery of 200 images, it raises the top-1 accuracy on a new subject from 28% to 67% over 53 minutes of use. Across 60 evaluation settings that vary the gallery size, the query frequencies and the number of repetitions averaged per query, GALA is the most accurate label-free method in every setting, 6.6 points above the best competing method on average at the end of the stream.",
+        "paper_url": "http://arxiv.org/abs/2611.24206v1",
+        "published": "2026-11-18T10:40:59Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 84,
+        "reason": "论文聚焦 EEG 视觉解码在跨被试、跨会话场景下的泛化与无标签校准，与用户的 EEG、脑机接口和跨被试迁移学习兴趣高度相关，且明确面向实际 BCI 部署。摘要未涉及运动想象分类，也未明确使用 Transformer 或具体深度学习架构，因此这些兴趣缺乏直接证据。",
+        "summary": "论文指出 EEG 视觉解码在受试者内表现较好，但在 THINGS-EEG-2 的 200 类基准上跨被试 top-1 准确率从 80% 以上降至约 32%，且适配新受试者通常依赖标注数据。作者提出增量转导校准设置，在已知候选图库和累积的无标签 EEG 上进行定期校准，并引入 GALA 方法，通过收缩白化、hubness 校正和 Sinkhorn-Procrustes 对齐实现无标签校准。实验中，新受试者使用 53 分钟后 top-1 准确率从 28% 提升到 67%；在 60 种评估设置下，GALA 平均比最佳对比方法高 6.6 个百分点。",
+        "recommended": true
+      }
+    },
+    "780c86416bdf2fbac12c74b197014b8989ae198d25c0fb01c9da78bffaf01691": {
+      "scored_at": "2026-11-28T06:39:22.361928+00:00",
+      "paper": {
+        "paper_title": "EEGSync: Unitary Temporal Alignment Method for Naturalistic and Resting-State EEG",
+        "paper_abstract": "Electroencephalography (EEG) studies increasingly use naturalistic and resting-state paradigms that lack discrete event timing. These recordings contain structured oscillatory activity but often lack repeated stimulus onsets to define a shared time clock across trials or participants. We introduce EEGSync, a complex-valued unitary Procrustes temporal alignment method for band-limited analytic EEG signals. EEGSync represents each subject as a matrix of complex oscillatory trajectories and solves a unitary Procrustes problem, mapping a target subject into the temporal coordinate system of a reference or group template. The method is computationally tractable through an economy-SVD factorization that avoids constructing the full temporal operator. This alignment strictly preserves original pairwise relationships and power across EEG channels. The unitary transformation aligns latent temporal structure rather than estimating a physical clock offset. Consequently, nonlinear instantaneous measures like phase-locking value, amplitude-envelope correlation, and phase-amplitude coupling are not guaranteed to be invariant. This framing makes EEGSync highly suitable for naturalistic shared-stimulus data, and potentially useful for resting-state data as a covariance-preserving latent manifold alignment. Evaluated via subject-independent cross-validation across physiological and clinical settings, EEGSync-based features achieved an AUROC of 0.9600 and 89.45% maximum classification accuracy in eyes-open versus eyes-closed state discrimination. For Alzheimer's disease versus healthy control classification, the highest AUROC reached 0.9272 in eyes-closed recordings, with further discrimination under eyes-open photostimulation. These findings suggest temporal alignment captures discriminative information complementing conventional spectral and statistical EEG features.",
+        "paper_url": "http://arxiv.org/abs/2611.24017v1",
+        "published": "2026-11-18T08:09:15Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 65,
+        "reason": "论文涉及EEG信号对齐和跨被试独立验证，与用户关注的EEG及跨被试迁移学习有间接关联；但未涉及脑机接口、运动想象分类、深度学习或Transformer，也未证明可用于运动想象任务。其对齐思路可能对跨被试EEG特征对齐有参考价值，但匹配主要集中在EEG数据处理层面。",
+        "summary": "论文提出EEGSync，一种针对带限解析EEG信号的复值酉Procrustes时间对齐方法，用于缺乏离散事件时间的自然范式和静息态EEG。该方法将受试者表示为复振荡轨迹矩阵，并通过经济型SVD求解酉Procrustes问题，将目标受试者映射到参考或组模板的时间坐标系中。研究通过被试独立交叉验证在生理和临床场景中评估，报告了睁眼与闭眼状态判别以及阿尔茨海默病与健康对照分类的表现。作者认为时间对齐能捕获补充传统频谱和统计特征的信息。",
+        "recommended": false
+      }
+    },
+    "c490a1d238810773c8adc876bada65a04e4d76f4b207fda599b30de44d0eff5f": {
+      "scored_at": "2026-11-28T06:39:26.281848+00:00",
+      "paper": {
+        "paper_title": "EEG2MCU: Sensing-to-Execution Co-Design for Wearable EEG Inference",
+        "paper_abstract": "Wearable EEG inference is constrained not only by model size, but also by the channel-dependent sensing front end that must process high-dimensional inputs before compact downstream computation. We present EEG2MCU, a sensing-to-execution co-design framework that treats electrode count as a hardware design variable through task-aware montage selection. EEG2MCU retains a compact time-frequency representation and generates only the INT8 regions required by each first-layer tile, avoiding full input materialization. Halo reuse and access-aware placement across Flash, SRAM, and tightly coupled memory further reduce redundant generation and data movement. On a Cortex-M7 MCU, EEG2MCU reduces peak SRAM by 11.38x relative to the baseline, including a 1.71x reduction from the 62-to-19 electrode montage, while reducing latency by 2.57x and energy by 2.48x. It retains 94-96% of full-montage accuracy, demonstrating practical high-dimensional EEG inference under tight embedded-resource constraints.",
+        "paper_url": "http://arxiv.org/abs/2611.23619v1",
+        "published": "2026-11-17T23:20:51Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 45,
+        "reason": "论文涉及EEG推理与嵌入式硬件协同设计，与用户兴趣中的EEG和深度学习推理有间接关联；但摘要未涉及脑机接口、运动想象分类、Transformer或跨被试迁移学习，核心任务匹配有限。该工作更偏向EEG模型在MCU上的部署优化，而非用户关注的分类方法与迁移学习问题。",
+        "summary": "论文提出EEG2MCU，一个面向可穿戴EEG推理的感知到执行协同设计框架，将电极数量作为硬件设计变量并通过任务感知的导联选择进行优化。该方法保留紧凑时频表示，仅生成首层每个瓦片所需的INT8区域，避免完整输入物化，并利用Flash、SRAM和紧耦合内存间的halo复用与访问感知放置减少冗余生成和数据移动。在Cortex-M7 MCU上，峰值SRAM相对基线降低11.38倍，其中62到19电极的导联配置带来1.71倍降低，同时延迟降低2.57倍、能耗降低2.48倍，并保留全导联精度的94-96%。",
+        "recommended": false
+      }
+    },
+    "e49e7fad4b1183cc9508a726753dde412d11305914bb6ff611e5de37467aa799": {
+      "scored_at": "2026-11-28T06:39:30.780823+00:00",
+      "paper": {
+        "paper_title": "Reference Coordinates, Output Perturbations, and Information Loss in EEG Decoding",
+        "paper_abstract": "Electroencephalography (EEG) decoders can respond to reference changes that preserve all relative-potential information. We use established measurement-operator theory to distinguish coordinate sensitivity, additional output-channel perturbations, and electrode loss. Exact pseudoinverse alignment supplies a consistency control; measurement-operator canonicalization (MOC) denotes a graph-Tikhonov estimator. The broader evaluation covers three public motor-imagery datasets and four decoders. The primary EEGNet comparison on Cho2017 and PhysioNet uses three paired training seeds, three shared noise realizations, and six front ends, with identical CAR training inputs sharing checkpoints. At 10 dB output perturbation, MOC-minus-raw disagreement was -0.144 and -0.107, while balanced-accuracy differences were 0.044 and 0.050, respectively; these four contrasts passed the retained Holm correction. MOC also reduced disagreement relative to pseudoinversion across all three seeds in both cohorts. However, comparison with fixed graph smoothing after pseudoinversion did not establish an additional MOC benefit. Preserving zero reference rows changed raw disagreement by less than 0.001 in magnitude; inverse-method predictions were unchanged. For canonical front ends, cross-reference disagreement was close to the reference obtained from independent noise within the same operator. Controlled weak-mode reconstruction and equal-rank electrode masks exposed separate stability and information-loss effects. The results locate the complete-reference gains within spatial processing under the specified stress model, while requiring decoding accuracy alongside consistency to assess practical utility.",
+        "paper_url": "http://arxiv.org/abs/2611.22752v1",
+        "published": "2026-11-17T13:22:42Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 72,
+        "reason": "论文关注 EEG 解码器对参考坐标变化、输出扰动和电极丢失的敏感性，并使用运动想象数据集与 EEGNet 等解码器评估一致性及平衡准确率，因此与 EEG、脑机接口和深度学习解码方法有明确关联。摘要未涉及 Transformer，也未提供跨被试迁移学习的证据，运动想象分类只是评估场景之一而非核心创新。",
+        "summary": "论文利用测量算子理论区分 EEG 解码中的参考坐标敏感性、输出通道扰动和电极丢失，并用伪逆对齐作为一致性控制，提出测量算子规范化（MOC）这一图-Tikhonov 估计器。评估覆盖三个公开运动想象数据集和四个解码器，重点比较 EEGNet 在 Cho2017 与 PhysioNet 上的表现。结果显示 MOC 相对原始方法可降低不一致性并带来一定平衡准确率差异，但与伪逆后固定图平滑相比未证明额外收益。论文强调需同时考察解码准确率和一致性来判断实际效用。",
+        "recommended": true
+      }
+    },
+    "1e38249feef1ad063173115618948276b3a49a7c87311cb086e9fae87c862952": {
+      "scored_at": "2026-11-28T06:39:35.317822+00:00",
+      "paper": {
+        "paper_title": "Beyond Reconstruction: A Unified Framework for Trustworthy and Explainable EEG Artifact Removal Evaluation",
+        "paper_abstract": "Deep-learning methods have achieved strong performance in EEG artifact removal, but evaluation remains dominated by reconstruction metrics such as error, correlation, and signal-to-noise ratio. Although these metrics assess similarity to clean EEG, they do not establish whether models effectively suppress artifacts, preserve neural activity, or provide reliable explanations. To address these limitations, we propose TriX-EEG, a three-level framework for trustworthy and explainable EEG artifact removal. Level 1, Signal Validity (SV), evaluates reconstruction quality and neural band-power preservation. Level 2, Removal Faithfulness (RF), assesses the removed component through artifact error and residual artifact/neural leakage. Level 3, Explanation Reliability (ER), examines model behavior through temporal alignment, causal relevance, and stability. We evaluate TriX-EEG using nine published neural denoisers across three public benchmarks derived from EEGDenoiseNet and the PhysioNet Motion Artifact Contaminated EEG Dataset, covering EOG, EMG, and motion artifacts. Results show that reconstruction metrics alone are insufficient for trustworthy denoiser assessment: RF complements it by revealing whether errors stem from residual artifact or suppressed neural activity, while ER captures distinct aspects of explanation behavior, supporting joint evaluation of three aspects within a unified framework rather than reliance on any single factor. External validation on an independent EEG/EOG dataset and the BCI Competition IV-2a motor-imagery dataset further demonstrates broadly consistent rankings under dataset shift. Higher-ranked denoisers generally preserve more task-relevant information or cause less downstream performance degradation. Overall, TriX-EEG provides a comprehensive basis for EEG denoiser assessment, encouraging models that are not only accurate but also faithful and explainable.",
+        "paper_url": "http://arxiv.org/abs/2611.21781v1",
+        "published": "2026-11-16T19:06:53Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 62,
+        "reason": "论文聚焦EEG伪迹去除的可信与可解释评估，与用户的EEG和BCI兴趣有间接关联，并使用了BCI Competition IV-2a运动想象数据集做下游验证；但未涉及运动想象分类方法、Transformer架构或跨被试迁移学习，因此与核心研究方向只是邻近关联。",
+        "summary": "论文提出TriX-EEG三级框架，从信号有效性、去除忠实性和解释可靠性评估EEG伪迹去除模型，指出仅靠重建指标不足以判断模型是否有效抑制伪迹并保留神经活动。作者在EEGDenoiseNet和PhysioNet运动伪迹数据集衍生的三个基准上评估九种已发表神经去噪器，涵盖EOG、EMG和运动伪迹。独立EEG/EOG数据集和BCI Competition IV-2a运动想象数据集的外部验证显示排名总体一致，排名较高的去噪器通常保留更多任务相关信息或造成较少下游性能下降。",
+        "recommended": false
+      }
+    },
+    "cd7a8f3911ee715f69ebec8b2ce12ea46ecce039dc1a8bcd9ad59d6495ecedaa": {
+      "scored_at": "2026-11-28T06:39:40.331808+00:00",
+      "paper": {
+        "paper_title": "MegNIST, A Benchmark for Non-Invasive Inner Speech Decoding",
+        "paper_abstract": "MegNIST is a benchmark dataset for developing and evaluating machine learning methods for inner speech decoding from magnetoencephalography (MEG). The dataset comprises 12,000 trials of a single participant imagining speaking the digits zero through nine, recorded across four sessions. Each trial contains 306-channel MEG recordings sampled at 250 Hz, preprocessed using signal space separation, filtering, and downsampling. Data are provided as pre-defined training (10,000 trials), validation (1,000 trials), and test (1,000 trials) splits, with entire experimental runs assigned to each split to preserve temporal independence. The dataset is available in both BIDS format for neuroimaging analysis and as serialised tensors for machine learning workflows. Baseline classification results demonstrate that imagined digits can be decoded significantly above chance. Standardised splits, validated baselines, example code, and a PyTorch-compatible loader in the pnpl Python library enable straightforward integration with machine learning frameworks, lowering barriers for researchers to rapidly develop and benchmark inner speech decoding methods for non-invasive brain-computer interfaces.",
+        "paper_url": "http://arxiv.org/abs/2611.21399v1",
+        "published": "2026-11-16T16:52:25Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 50,
+        "reason": "论文与非侵入式脑机接口解码和机器学习基准相关，和用户的BCI兴趣有间接联系；但数据模态是MEG而非EEG，任务是内隐言语解码而非运动想象分类，且仅单被试，未涉及Transformer或跨被试迁移学习，因此与核心研究方向匹配有限。",
+        "summary": "MegNIST是一个用于从脑磁图（MEG）解码内隐言语的基准数据集。数据集包含单一被试在四个会话中想象说出数字0到9的12,000个试次，提供306通道、250 Hz的MEG记录及预处理流程。数据划分为训练、验证和测试集，并提供BIDS格式和序列化张量格式，附带基线分类结果、示例代码和PyTorch兼容加载器。",
+        "recommended": false
+      }
+    },
+    "d745eb34f6f48bf9486ad616a7756b0c8a3c5afc5773b5bf9d6dd54070635623": {
+      "scored_at": "2026-11-28T06:39:45.208510+00:00",
+      "paper": {
+        "paper_title": "Towards wearable-scale, transition-aware sleep staging for clinical populations",
+        "paper_abstract": "Automatic sleep staging models are predominantly developed on healthy sleepers and generalize poorly to clinical populations with fragmented sleep. Across three cohorts (patients with stroke, isolated REM sleep behaviour disorder, and other sleep disorders), we observe 2-3x more awakenings per hour, nearly twice as much N1, and less REM sleep than in healthy sleepers. We propose a label-efficient teacher-student framework for wearable-scale sleep staging. SleepGPT (136M parameters), adapted using labels from 25% of training patients, supervises a causal CNN-GRU (31k parameters; 122 KB) that stages EEG, EOG, or both in real time. We introduce Gcv-TAD, a new black-box transition-aware distillation loss. It emphasizes uncommon stage transitions while discounting those that vary across patients, using a prior estimated from labelled patients. In patient-wise 10-fold cross-validation, Gcv-TAD improves per-patient macro F1 over supervised training on the same labels by +3.2 to +7.6 points on average. Gains are largest on N1, and performance approaches full-label training.",
+        "paper_url": "http://arxiv.org/abs/2611.21040v1",
+        "published": "2026-11-16T12:57:50Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 45,
+        "reason": "论文使用EEG/EOG与深度学习进行睡眠分期，和用户的EEG、深度学习兴趣有间接关联；但未涉及脑机接口、运动想象分类或跨被试迁移学习，Transformer结构也未在摘要中明确说明。其标签高效教师-学生框架与迁移学习有弱关联，但不是用户核心的跨被试迁移场景。",
+        "summary": "该论文关注临床人群睡眠分期模型泛化差的问题，在卒中、孤立性REM睡眠行为障碍和其他睡眠障碍三个队列中观察到觉醒增多、N1增多和REM睡眠减少。作者提出标签高效的教师-学生框架：用25%训练患者标签适配SleepGPT，再监督一个小型因果CNN-GRU实时分期EEG、EOG或二者。论文还提出Gcv-TAD过渡感知蒸馏损失，在患者级10折交叉验证中较同标签监督训练提升每患者宏F1平均3.2至7.6点，N1提升最大，性能接近全标签训练。",
+        "recommended": false
+      }
+    },
+    "76e963946f26b1a56b60cb9bf015e1ca2e297e48768ece86254e1c02dee075c8": {
+      "scored_at": "2026-11-28T06:39:50.517614+00:00",
+      "paper": {
+        "paper_title": "EE-Motion: An EEG-based Web Architecture for Live Affective Music Recommendation",
+        "paper_abstract": "Music listening is intrinsically tied to emotion, which drifts continuously within a single session. Although modern browsers interface with wearable brain-computer interfaces, recommendation systems remain structured around discrete logs and lack the infrastructure to integrate continuous physiological signals. Furthermore, existing affect-aware models rely on static user profiles and offline training, failing to serve anonymous newcomers without model retraining. We present a web platform that resolves both challenges. Pairing with a consumer electroencephalogram (EEG) headband over Web Bluetooth, the system captures live EEG, mapping frontal alpha asymmetry and arousal index to normalized valence-arousal proxy coordinates on Russell's circumplex plane. Driven by these coordinates, an affective adapter unifies structurally diverse recommendation backbones under a shared live scoring mechanism. By parameterizing anonymous visitors through a few favorite tracks, the module recommends tracks conditioned on live proxy coordinates. This demonstrates that real-time EEG-derived control signals can steer recommendations without persistent user tables or model retraining.",
+        "paper_url": "http://arxiv.org/abs/2611.21032v2",
+        "published": "2026-11-16T12:52:08Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 55,
+        "reason": "论文涉及消费级EEG头带、实时EEG信号和脑机接口式交互，与用户对EEG/BCI的广泛兴趣有间接关联；但研究任务是情感音乐推荐，未涉及运动想象分类、深度学习、Transformer或跨被试迁移学习，摘要也没有证据支持这些方向。整体属于邻近应用而非核心方法匹配。",
+        "summary": "论文提出一个基于EEG的网页架构，通过Web Bluetooth连接消费级EEG头带，实时采集EEG并将额叶alpha不对称性和唤醒指数映射到Russell环形情感平面的效价-唤醒代理坐标。系统利用这些坐标驱动一个情感适配器，将结构不同的推荐骨干统一到共享实时评分机制下。匿名用户可通过少量喜欢的曲目被参数化，系统据此结合实时代理坐标推荐曲目，无需持久用户表或模型重训练。",
+        "recommended": false
+      }
+    },
+    "ded7ba053bde4901bf08f4d8584daf5cb4f786ba610a6c9eccc6294bb3e78adb": {
+      "scored_at": "2026-11-28T06:39:54.965091+00:00",
+      "paper": {
+        "paper_title": "Transcutaneous auricular vagus nerve stimulation modulates auditory-evoked responses and conflict adaptation in humans",
+        "paper_abstract": "Vagus nerve stimulation (VNS) engages ascending neuromodulatory systems, and animal studies have motivated the hypothesis that it shifts sensory cortical processing toward feedforward (FF) relative to feedback (FB) transmission. Whether transcutaneous auricular VNS (taVNS) produces a corresponding pattern in humans remains unclear. In a single-blind, sham-controlled crossover study, 11 healthy adults received 120 min of taVNS (25 Hz, left tragus) and sham stimulation (left earlobe) in separate sessions. Click-evoked EEG was recorded before, twice during, and immediately after stimulation. Sensory discrimination thresholds and conflict adaptation in a Simon task were assessed before and during stimulation. Relative to Sham, taVNS attenuated the decline in the early P0 response across the session and enhanced the Pa-Nb response early during stimulation. The later P2 response did not show the increase observed under Sham. After stimulation, taVNS reduced click-locked theta (5-8 Hz) inter-trial phase coherence relative to Sham, with no significant between-condition difference in the change in theta power. Conflict adaptation increased under taVNS, whereas sensory thresholds and the overall Simon effect did not differ significantly between conditions. In exploratory analysis, greater decreases in theta phase coherence were associated with greater increases in conflict adaptation. These findings indicate that taVNS modulates auditory responses across processing stages and conflict-related behavior. The pattern is compatible with altered FF/FB weighting, but the direction of information flow and the underlying neuromodulatory mechanisms were not measured directly.",
+        "paper_url": "http://arxiv.org/abs/2611.20920v1",
+        "published": "2026-11-16T11:29:56Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 35,
+        "reason": "论文使用EEG记录听觉诱发反应，与用户兴趣中的EEG模态有间接关联；但研究主题是经皮耳迷走神经刺激对听觉处理和冲突适应的影响，未涉及脑机接口、运动想象分类、深度学习、Transformer或跨被试迁移学习。因此仅在EEG实验方法层面有较弱关联，缺乏对核心研究方向的直接参考价值。",
+        "summary": "该研究采用单盲、假刺激对照的交叉设计，11名健康成人分别接受120分钟taVNS和假刺激，并在刺激前、中、后记录点击诱发EEG。研究比较了taVNS与假刺激对早期P0、Pa-Nb、P2等听觉诱发成分以及点击锁相theta相位一致性的影响，并评估Simon任务中的感觉辨别阈值和冲突适应。结果显示taVNS改变了多个加工阶段的听觉反应，并提高了冲突适应，但感觉阈值和总体Simon效应无显著组间差异。探索性分析中，theta相位一致性下降越大与冲突适应增加越大相关；作者指出该模式与FF/FB权重改变相容，但未直接测量信息流方向或神经调控机制。",
+        "recommended": false
+      }
+    },
+    "b14a989f5831f9fdf5d16e081228e5b7411da18390f2da0e05eec9b5007b2459": {
+      "scored_at": "2026-11-28T06:39:59.446895+00:00",
+      "paper": {
+        "paper_title": "Motor Imagery Classification Using Hybrid Cross-Subject Class Mixup and Selective Attention",
+        "paper_abstract": "Motor imagery (MI) enables a brain-computer interface (BCI) to decode movement intentions without overt movement. Hybrid electroencephalography (EEG) and functional near-infrared spectroscopy (fNIRS) classification combines complementary signals, but inter-subject variability and the design of information exchange between modalities affect generalization to new subjects. We propose a framework that combines Cross-Subject Class Mixup (CSCM) with Selective Attention. CSCM aims to construct new training data to make the model robust against inter-subject variability. It independently selects EEG and fNIRS donor trials from other training subjects within the anchor class and mixes each modality while preserving the original label. Selective Attention provides an effective way to simultaneously model the temporal signal characteristics and fuse the two modalities. It retains causal temporal self-attention for EEG and uses a classification token (CLS) to integrate both modalities, without fNIRS attention updates or direct cross-modal temporal-token attention. Leave-one-subject-out (LOSO) evaluation across 28 subjects on a public EEG-fNIRS dataset yields a mean balanced accuracy (BA) of 76.85% and a macro-averaged F1 score (Macro-F1) of 76.58%. The proposed model achieves the highest mean performance among five reimplemented baselines. We also examine the contributions of CSCM and Selective Attention through modality-specific mixing and donor-policy comparisons, temporal-policy comparisons, interventions on direct cross-modal paths, and component ablations.",
+        "paper_url": "http://arxiv.org/abs/2611.20853v1",
+        "published": "2026-11-16T10:26:32Z",
+        "research_interests": "EEG、脑机接口、运动想象分类、深度学习、Transformer、跨被试迁移学习"
+      },
+      "analysis": {
+        "score": 90,
+        "reason": "该论文直接研究运动想象分类与脑机接口，并针对跨被试变异性提出跨被试类别Mixup，与用户的运动想象分类、跨被试迁移学习兴趣高度匹配；同时使用选择性注意力/时序自注意力，与深度学习和Transformer方向密切相关。其核心数据为EEG-fNIRS混合模态而非纯EEG，但摘要明确包含EEG通路与跨被试LOSO评估，因此仍属直接相关。",
+        "summary": "论文面向运动想象脑机接口，指出EEG与fNIRS混合分类受被试间差异和模态信息交换设计影响。作者提出将跨被试类别Mixup与选择性注意力结合：前者从其他训练被试中选取同类别EEG和fNIRS试次分别混合以增强跨被试鲁棒性，后者保留EEG因果时序自注意力并用CLS token融合两种模态。在28名被试的公共EEG-fNIRS数据集上采用留一被试评估，平均平衡准确率为76.85%，宏平均F1为76.58%，并在五个复现基线中取得最高平均性能。摘要还通过模态特定混合、供体策略、时序策略、跨模态路径干预和组件消融分析两个组件的贡献。",
+        "recommended": true
+      }
     }
   },
   "deliveries": {
@@ -587,11 +747,17 @@
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:1c53dd56b817d89cb59a37af23027d94cb44a2915992c628fde9c3396607a7c8": "2026-11-27T07:07:52.697038+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:762eb25877095f0d40c57bc76373f23de073e7dacae34aa2f412c263211a3d22": "2026-11-27T07:07:52.697038+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:954f3027880484db64fc7fbefd94fb8b0c28ac47a8cd5833832a098dc948a065": "2026-11-27T07:07:52.697038+00:00",
-    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:86c7e38526e6e0299d31d13c5e09332f1c0b44b18b45d4df5836b728d63a8688": "2026-11-27T07:07:52.697038+00:00"
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:86c7e38526e6e0299d31d13c5e09332f1c0b44b18b45d4df5836b728d63a8688": "2026-11-27T07:07:52.697038+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:b14a989f5831f9fdf5d16e081228e5b7411da18390f2da0e05eec9b5007b2459": "2026-11-28T06:40:02.266756+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:27ce67c3f3b6be90604a53dddc7b66403ab1af7265cf416a29d01b40ebf75b1e": "2026-11-28T06:40:02.266756+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:e49e7fad4b1183cc9508a726753dde412d11305914bb6ff611e5de37467aa799": "2026-11-28T06:40:02.266756+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:780c86416bdf2fbac12c74b197014b8989ae198d25c0fb01c9da78bffaf01691": "2026-11-28T06:40:02.266756+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:1e38249feef1ad063173115618948276b3a49a7c87311cb086e9fae87c862952": "2026-11-28T06:40:02.266756+00:00"
   },
   "reports_sent": {
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-25": "2026-11-25T02:21:29.823053+00:00",
     "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-26": "2026-11-26T07:10:46.415572+00:00",
-    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-27": "2026-11-27T07:07:52.697038+00:00"
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-27": "2026-11-27T07:07:52.697038+00:00",
+    "46ce8918b21b505d7110f5dddc513119344d27087d2237b671d62e870f0ec244:2026-11-28": "2026-11-28T06:40:02.266756+00:00"
   }
 }
